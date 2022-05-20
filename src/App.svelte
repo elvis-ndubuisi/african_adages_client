@@ -1,13 +1,10 @@
-<script>
-	import Home from './pages/Home.svelte';
-</script>
+<Navbar/>
 
-<main class="app">
+<main class="comp-container">
 	<Home/>
 </main>
 
-<style>
-	.app{
-		min-height: inherit;
-	}
-</style>
+<script>
+	import Navbar from "./components/Navbar.svelte";
+	import Home from "./pages/Home.svelte";
+</script>

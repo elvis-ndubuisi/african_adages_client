@@ -4,9 +4,9 @@
 
 <div class="nav-wrapper">
     <nav>
-        <button>okay</button>
-        <button>okay</button>
-        <button>okay</button>
+        <p>omay</p>
+        <p>omay</p>
+        <p>omay</p>
     </nav>
 </div>
 
@@ -19,6 +19,8 @@
         height: var(--nav-height);
         display: grid;
         place-items: center;
+        background-color: var(--clr-space-cadet);
+        color: var(--clr-selective-yellow);
     }
     nav {
         width: 100%;

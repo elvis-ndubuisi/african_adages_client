@@ -1,13 +1,12 @@
 /**********************
 *	Custom Properties 
  **********************/
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400&family=Overpass:wght@700;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Domine:wght@700&family=Open+Sans:wght@400;500&display=swap");
 :root {
   /* Fonts */
-  --fw-100: 300;
-  --fw-200: 400;
+  --fw-100: 400;
+  --fw-200: 500;
   --fw-300: 700;
-  --fw-400: 900;
 
   /* Sizing */
   --max-width: 400px;
@@ -24,119 +23,6 @@
   --clr-white_hsl: 0, 0%, 100%;
 
   --clr-dark: var(--clr-space-cadet);
-  /* --light-coral: hsla(357, 96%, 71%, 1);
-  --sonic-silver: hsla(227, 6%, 45%, 1);
-  --mountbatten-pink: hsla(347, 17%, 55%, 1);
-  --space-cadet: hsla(232, 27%, 23%, 1);
-  --silver-chalice: hsla(45, 2%, 69%, 1); */
-
-  /* CSS HEX */
-  /* --light-coral: #fc6c73ff;
-  --sonic-silver: #6d707bff;
-  --mountbatten-pink: #9f7780ff;
-  --space-cadet: #2a2e49ff;
-  --silver-chalice: #b1b0adff; */
-
-  /* CSS HSL */
-  /* --light-coral: hsla(357, 96%, 71%, 1);
-  --sonic-silver: hsla(227, 6%, 45%, 1);
-  --mountbatten-pink: hsla(347, 17%, 55%, 1);
-  --space-cadet: hsla(232, 27%, 23%, 1);
-  --silver-chalice: hsla(45, 2%, 69%, 1); */
-
-  /* SCSS HEX */
-  /* $light-coral: #fc6c73ff;
-  $sonic-silver: #6d707bff;
-  $mountbatten-pink: #9f7780ff;
-  $space-cadet: #2a2e49ff;
-  $silver-chalice: #b1b0adff; */
-
-  /* SCSS HSL */
-  /* $light-coral: hsla(357, 96%, 71%, 1);
-  $sonic-silver: hsla(227, 6%, 45%, 1);
-  $mountbatten-pink: hsla(347, 17%, 55%, 1);
-  $space-cadet: hsla(232, 27%, 23%, 1);
-  $silver-chalice: hsla(45, 2%, 69%, 1); */
-
-  /* SCSS RGB */
-  /* $light-coral: rgba(252, 108, 115, 1);
-  $sonic-silver: rgba(109, 112, 123, 1);
-  $mountbatten-pink: rgba(159, 119, 128, 1);
-  $space-cadet: rgba(42, 46, 73, 1);
-  $silver-chalice: rgba(177, 176, 173, 1); */
-
-  /* SCSS Gradient */
-  /* $gradient-top: linear-gradient(
-    0deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-right: linear-gradient(
-    90deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-bottom: linear-gradient(
-    180deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-left: linear-gradient(
-    270deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-top-right: linear-gradient(
-    45deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-bottom-right: linear-gradient(
-    135deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-top-left: linear-gradient(
-    225deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-bottom-left: linear-gradient(
-    315deg,
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  );
-  $gradient-radial: radial-gradient(
-    #fc6c73ff,
-    #6d707bff,
-    #9f7780ff,
-    #2a2e49ff,
-    #b1b0adff
-  ); */
 }
 
 @media (min-width: 768px) {
@@ -159,8 +45,8 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: "Lato", sans-serif;
-  font-weight: var(--fw-200);
+  font-family: "Open Sans", sans-serif;
+  font-weight: var(--fw-100);
   color: var(--clr-dark);
   background-color: var(--clr-white);
 }
@@ -170,7 +56,8 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Overpass", sans-serif;
+  font-family: "Domine", serif;
+  font-weight: var(--fw-300);
 }
 
 img {
@@ -191,8 +78,17 @@ button {
  **********************/
 
 /**********************
-*	Custom Properties 
+*	SPA styles 
  **********************/
+.app {
+  min-height: inherit;
+  display: block;
+  width: 100%;
+}
+
+.comp-container {
+  min-height: calc(100vh - var(--nav-height));
+}
 
 /**********************
 *	Custom Properties 

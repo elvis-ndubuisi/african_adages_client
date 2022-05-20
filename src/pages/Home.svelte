@@ -1,14 +1,23 @@
-<script>
-    import Navbar from "../components/Navbar.svelte";
-    import HeadingText from '../components/HeadingText.svelte'
+<section class="home">
+    <div>
+        <WelcomeText/>
+    </div>
+</section>
 
-    let bgImage = 'assets/ahoy.jpg';
+<script>
+    import WelcomeText from "../components/WelcomeText.svelte";
+    let bg = '/assets/ahoy.jpg';
 </script>
 
-<main class="home">
-</main>
-
 <style>
-   
+   .home {
+       min-height: inherit;
+       max-height: 100%;
+       color: var(--clr-white);
+       background-color: var(--clr-white);
+       display: grid;
+       place-items: center;
+   }
+
 </style>
 
