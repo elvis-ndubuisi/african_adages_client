@@ -4,7 +4,7 @@
 
 <style>
     button {
-        background-color: hsl(var(--clr-white));
+        background-color: transparent;
         color: hsl(var(--clr-secondary));
     }
     button:hover,button:focus{
