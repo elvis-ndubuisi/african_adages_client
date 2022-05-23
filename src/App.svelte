@@ -1,6 +1,6 @@
 <Navbar/>
 <main class="app-dynamic">
-	<SignUp/>
+	<Dashboard/>
 </main>
 <Footer/>
 
@@ -12,4 +12,5 @@
 	import Home from "./pages/Home.svelte";
 	import SignIn from './pages/SignIn.svelte';
 	import SignUp from './pages/SignUp.svelte';
+	import Dashboard from './pages/Dashboard.svelte';
 </script>
