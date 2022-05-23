@@ -1,28 +1,29 @@
 /**********************
 *	Custom Properties 
  **********************/
-@import url("https://fonts.googleapis.com/css2?family=Domine:wght@700&family=Open+Sans:wght@400;500&display=swap");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap");
 :root {
   /* Fonts */
-  --fw-100: 400;
-  --fw-200: 500;
-  --fw-300: 700;
+  --fw-100: 300;
+  --fw-200: 400;
+  --fw-300: 500;
+  --fw-400: 700;
+  --fw-500: 800;
+  --fw-600: 900;
+
+  --ff-primary: "Roboto", sans-serif;
+  --ff-secondary: "Poppins", sans-serif;
 
   /* Sizing */
-  --max-width: 400px;
-  --nav-height: 60px;
+  --max-width: 1100px;
+  --nav-height: 56px;
 
   /* colors */
-  --clr-space-cadet: #1a3365;
-  --clr-selective-yellow: #ffbb00;
-  --clr-tart-orange: #ff4343;
   --clr-white: #ffffff;
-  --clr-space-cadet_hsl: 220, 59%, 25%;
-  --clr-selective-yellow_hsl: 44, 100%, 50%;
-  --clr-tart-orange_hsl: 0, 100%, 63%;
-  --clr-white_hsl: 0, 0%, 100%;
-
-  --clr-dark: var(--clr-space-cadet);
+  --clr-dark: #1e2029;
+  --clr-lime: #e0ff00;
+  --clr-gray: #e3e3e3;
 }
 
 @media (min-width: 768px) {
@@ -45,10 +46,10 @@ html {
 
 body {
   min-height: 100vh;
-  font-family: "Open Sans", sans-serif;
-  font-weight: var(--fw-100);
+  font-family: var(--ff-primary);
+  font-weight: var(--fw-200);
   color: var(--clr-dark);
-  background-color: var(--clr-white);
+  background-color: var(--clr-gray);
 }
 
 h1,
@@ -56,8 +57,8 @@ h2,
 h3,
 h4,
 h5 {
-  font-family: "Domine", serif;
-  font-weight: var(--fw-300);
+  font-family: var(--ff-secondary);
+  line-height: 1;
 }
 
 img {
@@ -70,7 +71,12 @@ button {
   border: 0;
   font-family: inherit;
   cursor: pointer;
-  font-size: 1rem;
+}
+
+a {
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
 }
 
 /**********************
@@ -88,6 +94,11 @@ button {
 
 .comp-container {
   min-height: calc(100vh - var(--nav-height));
+}
+
+.comp-wrapper {
+  max-width: var(--max-width);
+  margin-inline: auto;
 }
 
 /**********************

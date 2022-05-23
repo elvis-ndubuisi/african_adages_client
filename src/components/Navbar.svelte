@@ -1,12 +1,17 @@
 <script>
     import Brand from './Brand.svelte';
+    import BMC from './BMC.svelte';
 </script>
 
 <div class="nav-wrapper">
     <nav>
-        <p>omay</p>
-        <p>omay</p>
-        <p>omay</p>
+        <Brand/>
+       <div>
+           <p>kasfj</p>
+           <p>kasfj</p>
+           <p>kasfj</p>
+       </div>
+       <BMC/>
     </nav>
 </div>
 
@@ -19,17 +24,22 @@
         height: var(--nav-height);
         display: grid;
         place-items: center;
-        background-color: var(--clr-space-cadet);
-        color: var(--clr-selective-yellow);
+        border-top: solid var(--clr-lime) 2px;
+        background-color: var(--clr-white)
     }
     nav {
         width: 100%;
         max-width: var(--max-width);
         height: 100%;
-        padding: 0 0.4em;
+        padding: 0 1rem;
         display: flex;
         flex-direction: row;
         align-items: center;
         justify-content: space-between;
+    }
+    nav > div {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
     }
 </style>
