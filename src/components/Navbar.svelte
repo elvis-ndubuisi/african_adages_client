@@ -1,45 +1,42 @@
-<script>
-    import Brand from './Brand.svelte';
-    import BMC from './BMC.svelte';
-</script>
-
-<div class="nav-wrapper">
+<div class="comp-wrapper">
     <nav>
-        <Brand/>
-       <div>
-           <p>kasfj</p>
-           <p>kasfj</p>
-           <p>kasfj</p>
-       </div>
-       <BMC/>
+        <AdageLogo/>
+        <ul class="nav_list">
+            <li><a href="#endpoints">endpoints</a></li>
+            <li><a href="#endpoints">API</a></li>
+            <li><a href="#endpoints">GitHub <i class="fa-solid fa-up-right-from-square"></i></a></li>
+        </ul>
     </nav>
 </div>
 
+<script>
+    import AdageLogo from './AdageLogo.svelte';
+</script>
+
 <style>
-    .nav-wrapper {
-        display: block;
-        position: sticky;
-        top: 0;
-        width: 100%;
+    .comp-wrapper {
+        background-color: hsl(var(--clr-white));
         height: var(--nav-height);
-        display: grid;
-        place-items: center;
-        border-top: solid var(--clr-lime) 2px;
-        background-color: var(--clr-white)
     }
     nav {
-        width: 100%;
-        max-width: var(--max-width);
-        height: 100%;
-        padding: 0 1rem;
+        height: inherit;
+        padding: 0 0.5rem;
         display: flex;
-        flex-direction: row;
         align-items: center;
         justify-content: space-between;
     }
-    nav > div {
-        display: flex;
+    ul, li {
+        display: inline-flex;
         align-items: center;
-        justify-content: space-around;
+        text-transform: capitalize;
+        font-weight: var(--fw-300);
+    }
+    a {
+        text-decoration: none;
+        Padding: 0.3rem 0.5rem;
+        color: hsl(var(--clr-dark));
+    }
+    a:hover, a:focus{
+        color: hsl(var(--clr-secondary))
     }
 </style>

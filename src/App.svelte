@@ -1,12 +1,8 @@
 <Navbar/>
-
-<main class="comp-container"
-	<Router {routes}/>
+<main class="app-dynamic">
+	<h2>maim app</h2>
 </main>
 
 <script>
-	import Router from 'svelte-spa-router';
-	import routes from './routes';
 	import Navbar from "./components/Navbar.svelte";
-	import Home from "./pages/Home.svelte";
 </script>
