@@ -96,6 +96,22 @@ a {
   transition: all 0.3s ease-in;
 }
 
+input,
+textarea {
+  font-family: inherit;
+  outline: 0;
+  border: none;
+  font-size: 1rem;
+  font-weight: var(--fw-200);
+  height: inherit;
+  width: 100%;
+}
+
+label {
+  text-transform: capitalize;
+  margin-bottom: 0.3rem;
+}
+
 /**********************
 *	Utility Classes 
  **********************/
@@ -110,6 +126,25 @@ a {
   transition: all 0.3s ease-in;
 }
 
+.auth-wrapper {
+  background-color: hsl(var(--clr-primary));
+  min-height: calc(90vh - var(--nav-height));
+  display: grid;
+  place-items: center;
+}
+
+.form-foot {
+  font-size: 0.9rem;
+  color: hsl(var(--clr-white));
+}
+.form-foot a {
+  opacity: 1;
+  color: hsl(var(--clr-secondary));
+}
+.form-foot a:hover,
+.form-foot a:focus {
+  text-decoration: none;
+}
 /**********************
 *	SPA styles 
  **********************/
