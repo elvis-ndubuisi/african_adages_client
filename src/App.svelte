@@ -1,12 +1,12 @@
 <Navbar/>
 <main class="app-dynamic">
-	<Dashboard/>
+	  <Router {routes}/>
 </main>
 <Footer/>
 
 <script>
 	import Router from 'svelte-spa-router';
-	import routes from './routes.js';
+	import routes from './routes';
 	import Navbar from "./components/Navbar.svelte";
 	import Footer from './components/Footer.svelte';
 	import Home from "./pages/Home.svelte";
