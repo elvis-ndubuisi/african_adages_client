@@ -64,12 +64,12 @@
 
             <ButtonPrimary type="submit">Submit</ButtonPrimary>
         </form>
-        <p class="form-foot">Not registered yet? <a href="/login" use:Link>Sign up now</a></p>
+        <p class="form-foot">Not registered yet? <a href="/login" use:link>Sign up now</a></p>
     </section>
 </section>
 
 <script>
-    import {Link} from 'svelte-spa-router';
+    import {link} from 'svelte-spa-router';
     import AdageIcon from "../components/AdageIcon.svelte";
     import ButtonPrimary from '../components/ButtonPrimary.svelte';
 </script>
