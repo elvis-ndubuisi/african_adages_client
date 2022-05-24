@@ -27,11 +27,15 @@
     </section>
 </section>
 
+<EditProfile/>
+
 <script>
     import ButtonPrimary from '../components/ButtonPrimary.svelte';
     import ButtonTertiary from '../components/ButtonTertiary.svelte';
     import Searchbar from '../components/Searchbar.svelte';
     import AdageItem from '../components/AdageItem.svelte';
+    import AddAdage from '../components/modals/AddAdage.svelte';
+    import EditProfile from '../components/modals/EditProfile.svelte';
     let profileImg = '/assets/asteroids.jpg';
 </script>
 
