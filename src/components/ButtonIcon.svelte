@@ -1,9 +1,9 @@
 {#if type==='delete'}
-    <button class="delete">
+    <button class="delete" on:click>
         <slot></slot>
     </button>
 {:else}
-    <button>
+    <button on:click>
         <slot></slot>
     </button>
 {/if}
