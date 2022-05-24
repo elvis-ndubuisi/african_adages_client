@@ -7,7 +7,7 @@
         </div>
     </section>
     <div class='action'>
-        <ButtonIcon>
+        <ButtonIcon on:click={editAdage}>
             <i class="fa-solid fa-pen-to-square"></i>
         </ButtonIcon>
         <ButtonIcon type='delete'>
@@ -17,7 +17,12 @@
 </li>
 
 <script>
+    import {adageItemState} from '../store.js';
     import ButtonIcon from "./ButtonIcon.svelte";
+
+    function editAdage(){
+       adageItemState.set({isEditing: true})
+    }
 </script>
 
 <style>

@@ -5,17 +5,16 @@
             <h3>Elvis</h3>
             <p>provictor.ie@gmail.com</p>
             <div>
-                <ButtonPrimary><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></ButtonPrimary>
+                <ButtonPrimary on:click={()=>{isEditProfile = activateModal(isEditProfile)}}><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></ButtonPrimary>
                 <ButtonTertiary><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log out</span></ButtonTertiary>
             </div>
         </section>
         <section class="main">
             <header class="action-bar">
-                <ButtonTertiary><i class="fa-solid fa-circle-plus"></i> <span>Add adage</span></ButtonTertiary>
+                <ButtonTertiary on:click={()=>{isAddAdage = activateModal(isAddAdage)}}><i class="fa-solid fa-circle-plus"></i> <span>Add adage</span></ButtonTertiary>
                 <Searchbar placeholder={'Search Adage...'}/>
             </header>
             <ul>
-                <AdageItem></AdageItem>
                 <AdageItem />
                 <AdageItem />
                 <AdageItem />
@@ -27,16 +26,37 @@
     </section>
 </section>
 
-<EditProfile/>
+{#if isEditProfile !== false}
+    <EditProfile/>
+{/if}
+{#if isAddAdage !== false}
+    <AddAdage/>
+{/if}
+{#if adageState?.isEditing !== false}
+    <EditAdage/>
+{/if}
 
 <script>
+    import {onDestroy} from 'svelte';
+    import { adageItemState } from '../store.js';
+    import activateModal from '../helpers/activateModal.js';
     import ButtonPrimary from '../components/ButtonPrimary.svelte';
     import ButtonTertiary from '../components/ButtonTertiary.svelte';
     import Searchbar from '../components/Searchbar.svelte';
     import AdageItem from '../components/AdageItem.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
     import EditProfile from '../components/modals/EditProfile.svelte';
+    import EditAdage from '../components/modals/EditAdage.svelte';
+
+    $:isAddAdage = false;
+    $:isEditProfile = false;
+
+    let adageState;
+    const unsubAdageState = adageItemState.subscribe(value=>{adageState = value});
+
+    onDestroy(unsubAdageState)
     let profileImg = '/assets/asteroids.jpg';
+
 </script>
 
 <style>
