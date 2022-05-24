@@ -1,4 +1,4 @@
-<a href="/#/" class="adage-logo">
+<a href="/" use:link class="adage-logo">
     <span class="svg">
         <AdageIcon/>
     </span>
@@ -6,6 +6,7 @@
 </a>
 
 <script>
+    import {link} from 'svelte-spa-router';
     import AdageIcon from './AdageIcon.svelte';
 </script>
 
