@@ -93,7 +93,8 @@ a {
   font-size: inherit;
   font-family: inherit;
   font-weight: inherit;
-  transition: all 0.3s ease-in;
+  transition: background 0.3s ease-in;
+  color: inherit;
 }
 
 input,
