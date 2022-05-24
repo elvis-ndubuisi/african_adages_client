@@ -1,4 +1,4 @@
-<a href="/" class="adage-logo">
+<a href="/#/" class="adage-logo">
     <span class="svg">
         <AdageIcon/>
     </span>

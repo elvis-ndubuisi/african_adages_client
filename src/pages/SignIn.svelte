@@ -24,7 +24,7 @@
 
             <ButtonPrimary type="submit">Submit</ButtonPrimary>
         </form>
-        <p class="form-foot">Not registered yet? <a href="#/register">Sign up now</a></p>
+        <p class="form-foot">Not registered yet? <a href="#/join">Sign up now</a></p>
     </section>
 </section>
 

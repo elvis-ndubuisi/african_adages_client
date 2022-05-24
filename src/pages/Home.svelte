@@ -9,7 +9,7 @@
             Feel free to join and contribute to the project.
         </p>
         <div>
-            <ButtonPrimary>Add an Adage</ButtonPrimary>
+            <ButtonPrimary><a href="/#/login">Add an Adage</a></ButtonPrimary>
         </div>
     </section>
 </section>
