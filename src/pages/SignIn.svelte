@@ -51,32 +51,4 @@
         width: 64px;
         height: 64px;
     }
-    form {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    .input-group {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: left;
-    }
-    .input-group .field {
-        background-color: hsl(var(--clr-white));
-        padding: 0.45rem;
-        border-radius: 0.3rem;
-        display: flex;
-        align-items: center;
-        color: hsl(var(--clr-primary));
-    }
-    .field i{
-        cursor: pointer;
-        padding: 0 0.3rem;
-    }
-    .field i:hover, .field i:focus{
-        color: hsl(var(--clr-secondary));
-    }
 </style>

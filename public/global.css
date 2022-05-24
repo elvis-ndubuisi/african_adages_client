@@ -140,18 +140,6 @@ label {
   place-items: center;
 }
 
-.form-foot {
-  font-size: 0.9rem;
-  color: hsl(var(--clr-white));
-}
-.form-foot a {
-  opacity: 1;
-  color: hsl(var(--clr-secondary));
-}
-.form-foot a:hover,
-.form-foot a:focus {
-  text-decoration: none;
-}
 /**********************
 *	SPA styles 
  **********************/
@@ -171,9 +159,49 @@ label {
 }
 
 /**********************
-*	Custom Properties 
+*	Form styles. 
  **********************/
-
+form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+.input-group {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+}
+.input-group .field {
+  background-color: hsl(var(--clr-white));
+  padding: 0.45rem;
+  border-radius: 0.3rem;
+  display: flex;
+  align-items: center;
+  color: hsl(var(--clr-primary));
+}
+.field i {
+  cursor: pointer;
+  padding: 0 0.3rem;
+}
+.field i:hover,
+.field i:focus {
+  color: hsl(var(--clr-secondary));
+}
+.form-foot {
+  font-size: 0.9rem;
+  color: hsl(var(--clr-white));
+}
+.form-foot a {
+  opacity: 1;
+  color: hsl(var(--clr-secondary));
+}
+.form-foot a:hover,
+.form-foot a:focus {
+  text-decoration: none;
+}
 /**********************
 *	Custom Properties 
  **********************/
