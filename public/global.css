@@ -114,6 +114,11 @@ textarea::placeholder {
   text-transform: capitalize;
 }
 
+textarea {
+  resize: none;
+  color: inherit;
+}
+
 label {
   text-transform: capitalize;
   margin-bottom: 0.3rem;
