@@ -1,4 +1,4 @@
-<section>
+<section class="modal-comp">
     <h2>Add Adage</h2>
     <form>
         <div class="input-group">
@@ -40,20 +40,6 @@
 </script>
 
 <style>
-    section {
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        min-width: 320px;
-        max-width: 400px;
-        max-height: 600px;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        /* background-color: hsl(var(--clr-white)); */
-        background-color: hsl(var(--clr-primary));
-        color: white;
-    }
     h2 {
         margin-bottom: 2rem;
         text-align: center;
