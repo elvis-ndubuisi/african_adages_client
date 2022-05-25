@@ -167,6 +167,11 @@ label {
   justify-content: space-between;
   gap: 1rem;
 }
+
+.close {
+  display: flex;
+  justify-content: right;
+}
 /**********************
 *	SPA styles 
  **********************/

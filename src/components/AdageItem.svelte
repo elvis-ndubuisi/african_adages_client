@@ -10,18 +10,24 @@
         <ButtonIcon on:click={editAdage}>
             <i class="fa-solid fa-pen-to-square"></i>
         </ButtonIcon>
-        <ButtonIcon type='delete'>
+        <ButtonIcon type='delete' on:click={deleteAdage}>
             <i class="fa-solid fa-trash-can"></i>
         </ButtonIcon>
     </div>
 </li>
 
 <script>
-    import {adageItemState} from '../store.js';
+    import { createEventDispatcher} from 'svelte';
     import ButtonIcon from "./ButtonIcon.svelte";
 
-    function editAdage(){
-       adageItemState.set({isEditing: true})
+    const dispatch = createEventDispatcher();
+
+    const editAdage = () => {
+        dispatch('edit-adage', {ev_editAdage: true})
+    }
+
+    const deleteAdage = () => {
+        dispatch('delete-adage', {ev_deleteAdage: true})
     }
 </script>
 
