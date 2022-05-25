@@ -2,14 +2,17 @@
     <nav>
         <AdageLogo/>
         <ul class="nav_list">
-            <li><a href="#endpoints">endpoints</a></li>
+            {#if $location === "/"}
+                <li><a href="#endpoints">endpoints</a></li>
+            {/if}
             <li><a href="#endpoints">API</a></li>
-            <li><a href="#endpoints">GitHub <i class="fa-solid fa-up-right-from-square"></i></a></li>
+            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api">GitHub <i class="fa-solid fa-up-right-from-square"></i></a></li>
         </ul>
     </nav>
 </div>
 
 <script>
+    import {location} from 'svelte-spa-router';
     import AdageLogo from './AdageLogo.svelte';
 </script>
 

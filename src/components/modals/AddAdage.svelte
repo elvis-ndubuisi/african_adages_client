@@ -1,5 +1,8 @@
 <section class="modal-comp">
-    <h2>Add Adage</h2>
+    <div class="flex-inline">
+        <h2>Add Adage</h2>
+        <ButtonIcon on:click={cancelModal}><i class="fa-solid fa-times"></i></ButtonIcon>
+    </div>
     <form>
         <div class="input-group">
             <label for="adage">Adage</label>
@@ -36,13 +39,23 @@
 </section>
 
 <script>
+    import { createEventDispatcher } from 'svelte';
+    import ButtonIcon from '../ButtonIcon.svelte';
     import ButtonPrimary from '../ButtonPrimary.svelte';
+
+    const dispatch = createEventDispatcher();
+
+    function cancelModal(){
+        dispatch('close-modal')
+    }
 </script>
 
 <style>
-    h2 {
+    .flex-inline {
         margin-bottom: 2rem;
-        text-align: center;
+    }
+    h2 {
+        text-align: left;
         color: hsl(var(--clr-secondary));
     }
 </style>

@@ -5,29 +5,31 @@
             <h3>Elvis</h3>
             <p>provictor.ie@gmail.com</p>
             <div>
-                <ButtonPrimary><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></ButtonPrimary>
+                <ButtonPrimary on:click={editProfile}><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></ButtonPrimary>
                 <ButtonTertiary><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log out</span></ButtonTertiary>
             </div>
         </section>
         <section class="main">
             <header class="action-bar">
-                <ButtonTertiary><i class="fa-solid fa-circle-plus"></i> <span>Add adage</span></ButtonTertiary>
+                <ButtonTertiary on:click={addNewAdage}><i class="fa-solid fa-circle-plus"></i> <span>Add adage</span></ButtonTertiary>
                 <Searchbar placeholder={'Search Adage...'}/>
             </header>
             <ul>
-                <AdageItem></AdageItem>
-                <AdageItem />
-                <AdageItem />
-                <AdageItem />
-                <AdageItem />
-                <AdageItem />
-                <AdageItem />
+                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
+                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
+                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
             </ul>
         </section>
     </section>
 </section>
 
-<EditProfile/>
+{#if editAdageModal === true && (editProfileModal && addAdageModal) === false}
+    <EditAdage on:close-modal={()=>{editAdageModal = false}}/>
+    {:else if editProfileModal === true && (editAdageModal && addAdageModal) === false}
+    <EditProfile on:close-modal={()=>{editProfileModal = false}}/>
+    {:else if addAdageModal === true && (editAdageModal && editProfileModal) === false}
+    <AddAdage on:close-modal={()=>{addAdageModal = false}}/>
+{/if}
 
 <script>
     import ButtonPrimary from '../components/ButtonPrimary.svelte';
@@ -36,7 +38,36 @@
     import AdageItem from '../components/AdageItem.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
     import EditProfile from '../components/modals/EditProfile.svelte';
+    import EditAdage from '../components/modals/EditAdage.svelte';
+
+    $:editAdageModal = false;
+    $:editProfileModal = false;
+    $:addAdageModal = false;
+
     let profileImg = '/assets/asteroids.jpg';
+
+
+    const addNewAdage = () => {
+        addAdageModal = true;
+        editAdageModal = false;
+        editProfileModal = false;
+    }
+
+    function deleteAdage(){
+        console.log('adage deleted')
+    }
+
+    function editAdage(e){
+        addAdageModal = false;
+        editAdageModal = true;
+        editProfileModal = false;
+    }
+
+    function editProfile(){
+        addAdageModal = false;
+        editAdageModal = false;
+        editProfileModal = true;
+    }
 </script>
 
 <style>
@@ -45,7 +76,6 @@
         background-color: hsl(var(--clr-primary), 0.1);
     }
     .comp-wrapper {
-        margin-block: 1rem;
         padding: 1.5rem 0;
         display: flex;
         align-items: flex-start;
@@ -96,5 +126,21 @@
         flex-direction: column;
         gap: 0.5rem;
         margin: 0.5rem 0;
+        padding: 0.5rem;
+        background-color: hsl(var(--clr-primary), 0.4);
+        scrollbar-color: hsl(var(--clr-primary), 0.4) hsl(var(--clr-secondary));
+        scrollbar-width: 10px;
+        scrollbar-track-color: hsl(var(--clr-primary), 0.4);
+    }
+    .main ul::-webkit-scrollbar {
+        width: 10px;
+    }
+    .main ul::-webkit-scrollbar-track{
+        background-color: hsl(var(--clr-primary), 0.4);
+        border-radius: 5px;
+    }
+    .main ul::-webkit-scrollbar-thumb {
+        background-color: hsl(var(--clr-primary));
+        border-radius: 5px;
     }
 </style>

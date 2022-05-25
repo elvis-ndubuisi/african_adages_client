@@ -161,6 +161,17 @@ label {
   color: white;
 }
 
+.flex-inline {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.close {
+  display: flex;
+  justify-content: right;
+}
 /**********************
 *	SPA styles 
  **********************/

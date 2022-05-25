@@ -9,7 +9,7 @@
             Feel free to join and contribute to the project.
         </p>
         <div>
-            <ButtonPrimary><a href="/login" use:Link>Add an Adage</a></ButtonPrimary>
+            <ButtonPrimary><a href="/login" use:link>Add an Adage</a></ButtonPrimary>
         </div>
     </section>
 </section>
@@ -37,7 +37,7 @@
 </section>
 
 <script>
-    import { Link } from 'svelte-spa-router';
+    import {link} from 'svelte-spa-router'
     import ButtonPrimary from '../components/ButtonPrimary.svelte';
     import ButtonTartiary from '../components/ButtonTertiary.svelte';
     import ButtonSecondary from '../components/ButtonSecondary.svelte';
