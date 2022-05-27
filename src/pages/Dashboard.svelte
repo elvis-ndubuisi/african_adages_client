@@ -32,8 +32,8 @@
 {/if}
 
 <script>
-    import ButtonPrimary from '../components/ButtonPrimary.svelte';
-    import ButtonTertiary from '../components/ButtonTertiary.svelte';
+    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
+    import ButtonTertiary from '../components/buttons/ButtonTertiary.svelte';
     import Searchbar from '../components/Searchbar.svelte';
     import AdageItem from '../components/AdageItem.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
