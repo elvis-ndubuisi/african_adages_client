@@ -71,7 +71,7 @@
 <script>
     import {link} from 'svelte-spa-router';
     import AdageIcon from "../components/AdageIcon.svelte";
-    import ButtonPrimary from '../components/ButtonPrimary.svelte';
+    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
 </script>
 
 <style>

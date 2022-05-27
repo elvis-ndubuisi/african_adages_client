@@ -1,37 +1,18 @@
 /**********************
-*	Custom Properties 
+*	Imports 
  **********************/
 
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@700;800;900&family=Roboto:wght@300;400;500&display=swap");
+@import url("./styles/fonts.css");
+@import url("./styles/colors.css");
 :root {
-  /* Fonts */
-  --fw-100: 300;
-  --fw-200: 400;
-  --fw-300: 500;
-  --fw-400: 700;
-  --fw-500: 800;
-  --fw-600: 900;
-
-  --ff-primary: "Roboto", sans-serif;
-  --ff-secondary: "Poppins", sans-serif;
-
   /* Sizing */
   --max-width: 1100px;
   --nav-height: 56px;
 
   /* colors */
-  --clr-primary: 200, 95%, 14%;
-  --clr-secondary: 43, 100%, 51%;
-  --clr-white: 0, 0%, 100%;
-  --clr-dark: 202, 90%, 4%;
 
   /* buttons */
   --btn-hsl-opacity: 0.3;
-}
-
-@media (min-width: 768px) {
-  :root {
-  }
 }
 
 /**********************
@@ -45,23 +26,29 @@
 
 html {
   scroll-behavior: smooth;
+  line-height: 1.15;
 }
 
 body {
   min-height: 100vh;
   font-family: var(--ff-primary);
   font-weight: var(--fw-200);
-  line-height: 1.4;
   color: hsl(var(--clr-dark));
-  background-color: hsl(var(--clr-white));
+  background-color: hsl(var(--clr-light));
 }
 
 h1,
 h2,
-h3,
-h4,
-h5 {
+h3 {
   font-family: var(--ff-secondary);
+}
+
+h1 {
+  font-size: 2rem;
+}
+
+h2 {
+  font-size: 1.6rem;
 }
 
 h3 {
