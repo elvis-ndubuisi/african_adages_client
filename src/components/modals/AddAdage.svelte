@@ -40,8 +40,8 @@
 
 <script>
     import { createEventDispatcher } from 'svelte';
-    import ButtonIcon from '../ButtonIcon.svelte';
-    import ButtonPrimary from '../ButtonPrimary.svelte';
+    import ButtonIcon from '../buttons/ButtonIcon.svelte';
+    import ButtonPrimary from '../buttons/ButtonPrimary.svelte';
 
     const dispatch = createEventDispatcher();
 

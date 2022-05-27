@@ -18,7 +18,7 @@
 
 <script>
     import { createEventDispatcher} from 'svelte';
-    import ButtonIcon from "./ButtonIcon.svelte";
+    import ButtonIcon from "./buttons/ButtonIcon.svelte";
 
     const dispatch = createEventDispatcher();
 

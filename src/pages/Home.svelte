@@ -38,9 +38,9 @@
 
 <script>
     import {link} from 'svelte-spa-router'
-    import ButtonPrimary from '../components/ButtonPrimary.svelte';
-    import ButtonTartiary from '../components/ButtonTertiary.svelte';
-    import ButtonSecondary from '../components/ButtonSecondary.svelte';
+    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
+    import ButtonTartiary from '../components/buttons/ButtonTertiary.svelte';
+    import ButtonSecondary from '../components/buttons/ButtonSecondary.svelte';
 </script>
 
 <style>
