@@ -1,13 +1,16 @@
 <section class="landing">
     <section class="comp-wrapper">
-        <h1>African Adage</h1>
-        <p>
-            The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. It can generate over 2 thousand random african proverbs/adages.
-        </p>
-        <p>
-            The African Adage Community appretiates you contritubions to its community.
-            Feel free to join and contribute to the project.
-        </p>
+        <div class="cta-text">
+            <h1>African Adage</h1>
+            <h2>The death of an elderly man is like a burning library.</h2>
+            <p>
+                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries.
+            </p>
+            <p>
+                The African Adage Community appretiates you contritubions to its community.
+                Feel free to join and contribute to the project.
+            </p>
+        </div>
         <div>
             <ButtonPrimary><a href="/login" use:link>Add an Adage</a></ButtonPrimary>
         </div>
@@ -45,7 +48,7 @@
 
 <style>
     .landing {
-        height: 330px;
+        height: 370px;
         background-color: hsl(var(--clr-primary));
         color: hsl(var(--clr-white));
         display: grid;
@@ -53,18 +56,25 @@
     }
     .landing .comp-wrapper {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-content: center;
+        justify-content: center;
+        flex-wrap: wrap;
         gap: 1rem;
+    }
+    .landing .comp-wrapper > div {
+        flex: 1 1 769px;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        justify-content: center;
+    }
+    .cta-text{
+        text-align: left;
     }
     h1 {
         font-size: 3rem;
         font-weight: var(--fw-600);
-        text-align: center;
-    }
-    p{
-        max-width: 40rem;
-        text-align: justify;
     }
 
     /* endpoints */
