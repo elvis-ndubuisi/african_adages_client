@@ -1,55 +1,39 @@
+<script>
+    import { link } from 'svelte-spa-router';
+    import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
+
+    let email = "";
+    let password = "";
+    let passInput = "";
+
+    function togglePassword(e){
+        passInput.type === 'password' ? passInput.type = 'text' : passInput.type = 'password';
+        e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
+    }
+</script>
+
 <section class="auth-wrapper">
     <section class="auth">
-        <span class="brand">
-            <AdageIcon/>
-        </span>
-        <h3>Sign In</h3>
+        <h2>Sign In</h2>
         
         <form>
             <div class="input-group">
-                <label for="identity">username/email</label>
+                <label for="identity">email</label>
                 <div class="field">
-                    <input type="text" name="identity" id="identity">
-                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="identity" id="identity" bind:value={email}>
                 </div>
             </div>
 
             <div class="input-group">
                 <label for="password">password</label>
                 <div class="field">
-                    <input type="password" name="password" id="password">
-                    <i class="fa-solid fa-eye-slash"></i>
+                    <input type="password" name="password" id="password" bind:value={password} bind:this={passInput}>
+                    <i class="fa-solid fa-eye-slash" on:click={togglePassword}></i>
                 </div>
             </div>
 
-            <ButtonPrimary type="submit">Submit</ButtonPrimary>
+            <ButtonSubmit>Sign In</ButtonSubmit>
         </form>
-        <p class="form-foot">Not registered yet? <a href="/join" use:link>Sign up now</a></p>
+        <a href="/join" use:link class="form-foot">Not registered yet? Join</a>
     </section>
 </section>
-
-<script>
-    import { link } from 'svelte-spa-router';
-    import AdageIcon from "../components/AdageIcon.svelte";
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
-</script>
-
-<style>
-    .auth {
-        min-width: 300px;   
-        max-width: 400px;   
-        margin: 1rem auto;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        color: hsl(var(--clr-white));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    .brand {
-        fill: hsl(var(--clr-secondary));
-        width: 64px;
-        height: 64px;
-    }
-</style>

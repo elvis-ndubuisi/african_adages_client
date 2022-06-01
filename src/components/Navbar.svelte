@@ -1,45 +1,49 @@
-<div class="comp-wrapper">
-    <nav>
+<script>
+    import {location, link} from 'svelte-spa-router';
+    import AdageLogo from './AdageLogo.svelte';
+</script>   
+
+<nav>
+    <div class="comp-wrapper">
         <AdageLogo/>
         <ul class="nav_list">
             {#if $location === "/"}
                 <li><a href="#endpoints">endpoints</a></li>
             {/if}
-            <li><a href="#endpoints">API</a></li>
-            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api">GitHub <i class="fa-solid fa-up-right-from-square"></i></a></li>
+            <li><a href="/join" use:link>Sign-in</a></li>
+            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api" tooltip="visit repo"><i class="fa-brands fa-github fa-xl"></i></a></li>
         </ul>
-    </nav>
-</div>
+    </div>
+</nav>
 
-<script>
-    import {location} from 'svelte-spa-router';
-    import AdageLogo from './AdageLogo.svelte';
-</script>
+
 
 <style>
-    .comp-wrapper {
-        background-color: hsl(var(--clr-white));
+    nav {
         height: var(--nav-height);
     }
-    nav {
+    .comp-wrapper {
         height: inherit;
         padding: 0 0.5rem;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        flex-wrap: wrap;
     }
     ul, li {
         display: inline-flex;
-        align-items: center;
+        align-items: stretch;
         text-transform: capitalize;
-        font-weight: var(--fw-300);
+        font-weight: var(--fw-200);
+        gap: 1rem;
     }
     a {
-        text-decoration: none;
         Padding: 0.3rem 0.5rem;
-        color: hsl(var(--clr-dark));
+        color: inherit;
+        border-bottom: solid 2px transparent;
     }
     a:hover, a:focus{
-        color: hsl(var(--clr-secondary))
+        border-bottom-color: var(--clr-secondary);
+        color: var(--clr-secondary);
     }
 </style>

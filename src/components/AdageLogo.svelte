@@ -15,14 +15,14 @@
         display:flex;
         align-items: center;
         gap: 10px;
-        fill: hsl(var(--clr-secondary));
+        fill: var(--clr-foreground);
         text-decoration: none;
-        color: hsl(var(--clr-dark));
+        color: inherit; 
         font-size: 1.6rem;
         transition: all 0.3s ease;
     }
     .adage-logo:hover, .adage-logo:focus{
-        color: hsl(var(--clr-secondary));
+        color: var(--clr-accent);
     }
     .adage-logo .svg {
         width: 32px;

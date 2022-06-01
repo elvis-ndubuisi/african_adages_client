@@ -4,12 +4,13 @@
 
 @import url("./styles/fonts.css");
 @import url("./styles/colors.css");
+@import url("./styles/buttons.css");
+@import url("./styles/form.css");
+
 :root {
   /* Sizing */
   --max-width: 1100px;
-  --nav-height: 56px;
-
-  /* colors */
+  --nav-height: 60px;
 
   /* buttons */
   --btn-hsl-opacity: 0.3;
@@ -33,8 +34,8 @@ body {
   min-height: 100vh;
   font-family: var(--ff-primary);
   font-weight: var(--fw-200);
-  color: hsl(var(--clr-dark));
-  background-color: hsl(var(--clr-light));
+  color: var(--clr-foreground);
+  background-color: var(--clr-background);
 }
 
 h1,
@@ -45,14 +46,17 @@ h3 {
 
 h1 {
   font-size: 2rem;
+  font-weight: var(--fw-900);
 }
 
 h2 {
   font-size: 1.6rem;
+  font-weight: var(--fw-800);
 }
 
 h3 {
   font-size: 1.4rem;
+  font-weight: var(--fw-800);
 }
 
 img {
@@ -60,75 +64,33 @@ img {
   display: block;
 }
 
-button {
-  outline: 0;
-  border: 0;
-  font-family: inherit;
-  cursor: pointer;
-  font-weight: var(--fw-300);
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 0.7rem;
+i {
+  font-size: 1.1rem;
 }
 
-button a {
-  text-decoration: none;
+pre,
+code {
+  font-family: var(--ff-mono);
+  font-size: 1rem;
 }
 
 a {
   font-size: inherit;
   font-family: inherit;
   font-weight: inherit;
-  transition: background 0.3s ease-in;
   color: inherit;
-}
-
-input,
-textarea {
-  font-family: inherit;
-  outline: 0;
-  border: none;
-  font-size: 1rem;
-  font-weight: var(--fw-200);
-  height: inherit;
-  width: 100%;
-  padding: 0.3rem 0;
-  background-color: transparent;
-}
-
-input::placeholder,
-textarea::placeholder {
-  text-transform: capitalize;
-}
-
-textarea {
-  resize: none;
-  color: inherit;
-}
-
-label {
-  text-transform: capitalize;
-  margin-bottom: 0.3rem;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 /**********************
 *	Utility Classes 
  **********************/
-.btn {
-  font-size: 1.1rem;
-  font-weight: var(--fw-300);
-  text-transform: capitalize;
-  padding: 0.5rem 1rem;
-  border-radius: 0.4rem;
-  min-width: 120px;
-  border: solid 2px transparent;
-  transition: all 0.3s ease-in;
-}
 
 .auth-wrapper {
-  background-color: hsl(var(--clr-primary));
-  min-height: calc(90vh - var(--nav-height));
+  min-height: calc(60vh - var(--nav-height));
   display: grid;
   place-items: center;
 }
@@ -143,9 +105,6 @@ label {
   max-height: 600px;
   padding: 1rem;
   border-radius: 0.5rem;
-  border: solid 2px hsl(var(--clr-white));
-  background-color: hsl(var(--clr-primary));
-  color: white;
 }
 
 .flex-inline {
@@ -181,47 +140,7 @@ label {
 /**********************
 *	Form styles. 
  **********************/
-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 1rem;
-}
-.input-group {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: left;
-}
-.input-group .field {
-  background-color: hsl(var(--clr-white));
-  padding: 0.45rem;
-  border-radius: 0.3rem;
-  display: flex;
-  align-items: center;
-  color: hsl(var(--clr-primary));
-}
-.field i {
-  cursor: pointer;
-  padding: 0 0.3rem;
-}
-.field i:hover,
-.field i:focus {
-  color: hsl(var(--clr-secondary));
-}
-.form-foot {
-  font-size: 0.9rem;
-  color: hsl(var(--clr-white));
-}
-.form-foot a {
-  opacity: 1;
-  color: hsl(var(--clr-secondary));
-}
-.form-foot a:hover,
-.form-foot a:focus {
-  text-decoration: none;
-}
+
 /**********************
 *	Custom Properties 
  **********************/
