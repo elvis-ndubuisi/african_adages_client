@@ -16,11 +16,9 @@ textarea {
   width: 100%;
   padding: 0.3rem 0;
   background-color: none;
-  border-radius: 0.5rem;
 }
 textarea {
   resize: none;
-  color: inherit;
 }
 input::placeholder,
 textarea::placeholder {
@@ -42,6 +40,7 @@ label span {
   align-items: left;
 }
 .field {
+  background-color: var(--clr-foreground);
   border: solid 1px var(--clr-secondary);
   padding: 0.45rem;
   border-radius: 0.3rem;

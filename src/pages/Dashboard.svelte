@@ -6,33 +6,12 @@
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
 
-    $:editAdageModal = false;
-    $:editProfileModal = false;
-    $:addAdageModal = false;
-
-    let profileImg = '/assets/asteroids.jpg';
-
-
-    const addNewAdage = () => {
-        addAdageModal = true;
-        editAdageModal = false;
-        editProfileModal = false;
-    }
-
-    function deleteAdage(){
-        console.log('adage deleted')
-    }
-
-    function editAdage(e){
-        addAdageModal = false;
-        editAdageModal = true;
-        editProfileModal = false;
-    }
-
-    function editProfile(){
-        addAdageModal = false;
-        editAdageModal = false;
-        editProfileModal = true;
+    let searchValue = '';
+    $:whichModal = "";
+    const modal = {
+        profileModal: "EPR",
+        addModal: "AAG",
+        editModal: "EAD",
     }
 </script>
 
@@ -43,19 +22,19 @@
             <section>
                 <div>
                     <h3>Elvis Ike Ogene</h3>
-                    <a href="" class="socials">@elvisike</a>
+                    <a href="https://google" class="socials">@elvisike</a>
                     <p>elvisikeog@gmail.com</p>
                     <p>country</p>
                 </div>
                 <div>
-                    <ButtonSimple><i class="fa-solid fa-pen-alt"></i> <span>edit</span></ButtonSimple>
+                    <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-pen-alt"></i> <span>Profile</span></ButtonSimple>
                     <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
-                    <ButtonDark>add new adage</ButtonDark>
+                    <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
                 </div>
             </section>
             <section>
                 <div class="field">
-                    <input type="text" placeholder="search adage">
+                    <input type="text" placeholder="search adage" bind:value={searchValue}>
                     <span><i class="fa-solid fa-magnifying-glass"></i></span>
                 </div>
                 <div></div>
@@ -67,13 +46,13 @@
     </main>
 </section>
 
-<!-- {#if editAdageModal === true && (editProfileModal && addAdageModal) === false}
-    <EditAdage on:close-modal={()=>{editAdageModal = false}}/>
-    {:else if editProfileModal === true && (editAdageModal && addAdageModal) === false}
-    <EditProfile on:close-modal={()=>{editProfileModal = false}}/>
-    {:else if addAdageModal === true && (editAdageModal && editProfileModal) === false}
-    <AddAdage on:close-modal={()=>{addAdageModal = false}}/>
-{/if} -->
+{#if whichModal !== "" && whichModal === 'EPR'}
+    <EditProfile on:close={()=>whichModal = ""}/>
+    {:else if whichModal !== "" && whichModal === 'AAG'}
+    <AddAdage on:close={()=>whichModal = ""}/>
+    {:else if whichModal !== "" && whichModal === 'EAD'}
+    <EditAdage on:close={()=>whichModal = ""}/>
+{/if}
 
 
 

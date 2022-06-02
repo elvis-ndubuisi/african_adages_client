@@ -88,23 +88,28 @@ a {
 /**********************
 *	Utility Classes 
  **********************/
-
-.auth-wrapper {
-  min-height: calc(60vh - var(--nav-height));
-  display: grid;
-  place-items: center;
-}
-
 .modal-comp {
+  background-color: var(--clr-background);
+  color: var(--clr-foreground);
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   min-width: 320px;
   max-width: 400px;
-  max-height: 600px;
   padding: 1rem;
   border-radius: 0.5rem;
+  border: solid 2px var(--clr-secondary);
+  box-shadow: 2px 4px var(--clr-secondary);
+}
+.modal-comp button {
+  color: var(--clr-background);
+  background-color: var(--clr-foreground);
+}
+.auth-wrapper {
+  min-height: calc(60vh - var(--nav-height));
+  display: grid;
+  place-items: center;
 }
 
 .flex-inline {
@@ -125,10 +130,6 @@ a {
   min-height: inherit;
   display: block;
   width: 100%;
-}
-
-.app-dynamic {
-  /* min-height: calc(100vh - var(--nav-height)); */
 }
 
 .comp-wrapper {

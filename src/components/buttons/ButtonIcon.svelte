@@ -14,17 +14,18 @@
 
 <style>
     button{
-        background-color: hsl(var(--clr-secondary), var(--btn-hsl-opacity));
         height: 36px;
         aspect-ratio: 1;
         padding: 4px;
         font-size: 1.2rem;
-        color: hsl(var(--clr-secondary));
-        border-radius: 0.3rem;
+        border-radius: 0.5rem;
+        color: var(--clr-foreground);
+        background-color: transparent;
         transition: all 0.3s ease;
     }
-    button:hover, button:focus, button.delete:hover, button.delete:focus {
-        background-color: transparent;
+    button:hover, button:focus {
+        background-color: var(--clr-foreground);
+        color: var(--clr-background);
     }
     button.delete {
         background-color: hsl(0, 100%, 50%, 0.3);
