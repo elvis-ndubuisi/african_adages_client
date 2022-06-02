@@ -51,3 +51,27 @@ button {
 .button_smt:focus {
   opacity: 0.8;
 }
+.button_simple {
+  height: 48px;
+  min-width: auto;
+  border: solid 1px var(--clr-background);
+  color: var(--clr-background);
+  font-weight: var(--fw-300);
+  background-color: transparent;
+}
+.button_simple:hover,
+.button_simple:focus {
+  background-color: var(--clr-background);
+  color: var(--clr-foreground);
+}
+.button_dark {
+  height: 48px;
+  font-weight: var(--fw-300);
+  color: var(--clr-foreground);
+  background-color: var(--clr-background);
+}
+.button_dark:hover,
+.button_dark:focus {
+  color: var(--clr-background);
+  background-color: var(--clr-foreground);
+}

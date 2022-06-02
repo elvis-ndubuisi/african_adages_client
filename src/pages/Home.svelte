@@ -3,9 +3,6 @@
     import {link} from 'svelte-spa-router'
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
     import ButtonSend from '../components/buttons/ButtonSend.svelte';
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
-    import ButtonTartiary from '../components/buttons/ButtonTertiary.svelte';
-    import ButtonSecondary from '../components/buttons/ButtonSecondary.svelte';
 
     $:queryWin = 'AOD';
 </script>
