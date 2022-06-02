@@ -13,6 +13,33 @@
         addModal: "AAG",
         editModal: "EAD",
     }
+    const dummy_adage = [
+        {
+            id: 1,
+            adage: " A bird that flies off the earth and lands on an anthill is still on the ground. ",
+            country: "Igbo",
+            tags : "tags"
+        },
+        {
+            id: 2,
+            adage: "He that beats the drum for the mad man to dance is no better than the mad man himself.",
+            country: "African",
+            tags : "tags"
+        },
+        {
+            id: 3,
+            adage: "No matter how beautiful and well-crafted a coffin might look, it will not make anyone wish for death",
+            country: "African",
+            tags : "tags"
+        },
+        {
+            id: 2,
+            adage: " If you do not have patience you cannot make beer",
+            country: "Ovambo",
+            tags : "tags"
+        },
+        
+    ];
 </script>
 
 <section class="dashboard">
@@ -27,7 +54,7 @@
                     <p>country</p>
                 </div>
                 <div>
-                    <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-pen-alt"></i> <span>Profile</span></ButtonSimple>
+                    <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
                     <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
                     <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
                 </div>
@@ -40,9 +67,11 @@
                 <div></div>
             </section>
         </header>
-        <main>
-
-        </main>
+        <ul class="adages">
+            {#each dummy_adage as adage}
+                <AdageItem adage_payload={adage}/>
+            {/each}
+        </ul>
     </main>
 </section>
 
@@ -105,6 +134,11 @@
     .field {
         border-color: var(--clr-background);
         flex: 1;
+    }
+    .adages {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
     }
     /* .img-holder {
         min-height: 100px;
