@@ -1,9 +1,19 @@
-<section class="modal-comp">
+<script>
+    import { createEventDispatcher } from 'svelte';
+    import { fade, slide} from 'svelte/transition';
+    import ButtonIcon from '../buttons/ButtonIcon.svelte';
+    import ButtonSubmit from '../buttons/ButtonSubmit.svelte';
+
+    const dispatch = createEventDispatcher();
+
+</script>
+
+<section class="modal-comp" transition:fade>
     <div class="flex-inline">
         <h2>Add Adage</h2>
-        <ButtonIcon on:click={cancelModal}><i class="fa-solid fa-times"></i></ButtonIcon>
+        <ButtonIcon on:click={()=>dispatch('close')}><i class="fa-solid fa-times"></i></ButtonIcon>
     </div>
-    <form>
+    <form method="post" transition:slide|local>
         <div class="input-group">
             <label for="adage">Adage</label>
             <div class="field">
@@ -34,21 +44,10 @@
             </div>
         </div>
 
-        <ButtonPrimary><i class="fa-solid fa-plus"></i> <span>Add Adage</span></ButtonPrimary>
+        <ButtonSubmit><i class="fa-solid fa-plus"></i> <span>Add Adage</span></ButtonSubmit>
     </form>
 </section>
 
-<script>
-    import { createEventDispatcher } from 'svelte';
-    import ButtonIcon from '../buttons/ButtonIcon.svelte';
-    import ButtonPrimary from '../buttons/ButtonPrimary.svelte';
-
-    const dispatch = createEventDispatcher();
-
-    function cancelModal(){
-        dispatch('close-modal')
-    }
-</script>
 
 <style>
     .flex-inline {

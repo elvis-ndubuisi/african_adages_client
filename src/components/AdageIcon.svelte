@@ -5,7 +5,7 @@
 <style>
     .adageShell,
     .adageAlpha {
-    fill: inherit, hsl(var(--clr-secondary));
+    fill: inherit, var(--clr-foreground);
     width: inherit;
     height: inherit;
     }
