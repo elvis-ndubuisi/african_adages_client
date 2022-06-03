@@ -1,98 +1,146 @@
-<section class="dashboard">
-    <section class="comp-wrapper">
-        <section class="profile-card">
-            <img class="img-holder" src={profileImg} alt={profileImg}>
-            <h3>Elvis</h3>
-            <p>provictor.ie@gmail.com</p>
-            <div>
-                <ButtonPrimary on:click={editProfile}><i class="fa-solid fa-user-pen"></i><span>Edit Profile</span></ButtonPrimary>
-                <ButtonTertiary><i class="fa-solid fa-arrow-right-from-bracket"></i> <span>Log out</span></ButtonTertiary>
-            </div>
-        </section>
-        <section class="main">
-            <header class="action-bar">
-                <ButtonTertiary on:click={addNewAdage}><i class="fa-solid fa-circle-plus"></i> <span>Add adage</span></ButtonTertiary>
-                <Searchbar placeholder={'Search Adage...'}/>
-            </header>
-            <ul>
-                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
-                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
-                <AdageItem on:delete-adage={deleteAdage} on:edit-adage={editAdage} />
-            </ul>
-        </section>
-    </section>
-</section>
-
-{#if editAdageModal === true && (editProfileModal && addAdageModal) === false}
-    <EditAdage on:close-modal={()=>{editAdageModal = false}}/>
-    {:else if editProfileModal === true && (editAdageModal && addAdageModal) === false}
-    <EditProfile on:close-modal={()=>{editProfileModal = false}}/>
-    {:else if addAdageModal === true && (editAdageModal && editProfileModal) === false}
-    <AddAdage on:close-modal={()=>{addAdageModal = false}}/>
-{/if}
-
 <script>
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
-    import ButtonTertiary from '../components/buttons/ButtonTertiary.svelte';
-    import Searchbar from '../components/Searchbar.svelte';
+    import ButtonDark from '../components/buttons/ButtonDark.svelte';
+    import ButtonSimple from '../components/buttons/ButtonSimple.svelte';
     import AdageItem from '../components/AdageItem.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
 
-    $:editAdageModal = false;
-    $:editProfileModal = false;
-    $:addAdageModal = false;
-
-    let profileImg = '/assets/asteroids.jpg';
-
-
-    const addNewAdage = () => {
-        addAdageModal = true;
-        editAdageModal = false;
-        editProfileModal = false;
+    let searchValue = '';
+    $:whichModal = "";
+    const modal = {
+        profileModal: "EPR",
+        addModal: "AAG",
+        editModal: "EAD",
     }
-
-    function deleteAdage(){
-        console.log('adage deleted')
-    }
-
-    function editAdage(e){
-        addAdageModal = false;
-        editAdageModal = true;
-        editProfileModal = false;
-    }
-
-    function editProfile(){
-        addAdageModal = false;
-        editAdageModal = false;
-        editProfileModal = true;
-    }
+    const dummy_adage = [
+        {
+            id: 1,
+            adage: " A bird that flies off the earth and lands on an anthill is still on the ground. ",
+            country: "Igbo",
+            tags : "tags"
+        },
+        {
+            id: 2,
+            adage: "He that beats the drum for the mad man to dance is no better than the mad man himself.",
+            country: "African",
+            tags : "tags"
+        },
+        {
+            id: 3,
+            adage: "No matter how beautiful and well-crafted a coffin might look, it will not make anyone wish for death",
+            country: "African",
+            tags : "tags"
+        },
+        {
+            id: 2,
+            adage: " If you do not have patience you cannot make beer",
+            country: "Ovambo",
+            tags : "tags"
+        },
+        
+    ];
 </script>
+
+<section class="dashboard">
+    <main class="comp-wrapper">
+        <h2>Welcome back</h2>
+        <header class="header">
+            <section>
+                <div>
+                    <h3>Elvis Ike Ogene</h3>
+                    <a href="https://google" class="socials">@elvisike</a>
+                    <p>elvisikeog@gmail.com</p>
+                    <p>country</p>
+                </div>
+                <div>
+                    <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
+                    <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
+                    <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
+                </div>
+            </section>
+            <section>
+                <div class="field">
+                    <input type="text" placeholder="search adage" bind:value={searchValue}>
+                    <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                </div>
+                <div></div>
+            </section>
+        </header>
+        <ul class="adages">
+            {#each dummy_adage as adage}
+                <AdageItem adage_payload={adage}/>
+            {/each}
+        </ul>
+    </main>
+</section>
+
+{#if whichModal !== "" && whichModal === 'EPR'}
+    <EditProfile on:close={()=>whichModal = ""}/>
+    {:else if whichModal !== "" && whichModal === 'AAG'}
+    <AddAdage on:close={()=>whichModal = ""}/>
+    {:else if whichModal !== "" && whichModal === 'EAD'}
+    <EditAdage on:close={()=>whichModal = ""}/>
+{/if}
+
+
 
 <style>
     .dashboard {
-        min-height: calc(100vh - var(--nav-height));
-        background-color: hsl(var(--clr-primary), 0.1);
+        padding-block: 1rem;
+        min-height: 80vh;
+    }
+    h2 {
+        font-weight: var(--fw-600);
+        font-size: 2.1rem;
+        text-transform: capitalize;
+    }
+    h3 {
+        font-weight: var(--fw-600);
+        text-transform: capitalize;
+        margin-bottom: 0.5rem;
+    }
+    p {
+        font-weight: var(--fr-100);
+        text-transform: lowercase;
+    }
+    .socials {
+        font-family: var(--ff-secondary);
+        font-weight: var(--fw-500);
     }
     .comp-wrapper {
-        padding: 1.5rem 0;
-        display: flex;
-        align-items: flex-start;
-        gap: 1rem;
-    }
-    .profile-card {
         display: flex;
         flex-direction: column;
         align-items: center;
         gap: 1rem;
-        max-width: 400px;
-        max-height: auto;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        background-color: hsl(var(--clr-white));
     }
-    .img-holder {
+    .header {
+        background-color: var(--clr-foreground);
+        color: var(--clr-background);
+        border-radius: 1rem;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        /* min-height: 200px; */
+        width: 100%;
+    }
+    .header > section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+    }
+    .field {
+        border-color: var(--clr-background);
+        flex: 1;
+    }
+    .adages {
+        width: 100%;
+        display: inline-flex;
+        flex-direction: column;
+    }
+    /* .img-holder {
         min-height: 100px;
         min-width: 100px;
         max-height: 150px;
@@ -142,5 +190,5 @@
     .main ul::-webkit-scrollbar-thumb {
         background-color: hsl(var(--clr-primary));
         border-radius: 5px;
-    }
+    } */
 </style>

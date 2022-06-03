@@ -1,9 +1,25 @@
 :root {
-  /* --clr-primary: 200, 95%, 14%; */
-  /* --clr-secondary: 43, 100%, 51%; */
-  /* --clr-white: 0, 0%, 100%; */
-  /* --clr-dark: 202, 90%, 4%; */
+  --clr-dark: 207, 95%, 8%;
+  --clr-light: 100, 100%, 99%;
 
-  --clr-dark: 207, 95, 8;
-  --clr-light: 100, 100, 99;
+  /* choco */
+  /* --clr-background: 34 49% 91%;
+  --clr-foreground: 13 46% 25%;
+  --clr-accent: 28 47% 54%; */
+
+  /* Manrope, playfair */
+  /* --clr-background: #000000;
+  --clr-foreground: #ffffff;
+  --clr-accent: #ffce47; */
+
+  /* inter */
+  /* --clr-background: #08090d;
+  --clr-foreground: #ffffff;
+  --clr-accent: #4e33ff; */
+
+  /* Manrope, inter */
+  --clr-background: #171c26;
+  --clr-foreground: #ffffff;
+  --clr-secondary: #09c0fa;
+  --clr-accent: #ffb647;
 }

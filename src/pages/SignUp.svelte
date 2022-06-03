@@ -1,24 +1,39 @@
+<script>
+    import {link} from 'svelte-spa-router';
+    import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
+    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
+
+    let password = "";
+    let passInput = "";
+    let cPassword = "";
+    let name = ""
+    let email= "";
+    let country = "";
+    let gender = "";
+
+    function togglePassword(e){
+        passInput.type === 'password' ? passInput.type = 'text' : passInput.type = 'password';
+        e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
+    } 
+</script>
+
 <section class="auth-wrapper">
     <section class="auth">
-        <span class="brand">
-            <AdageIcon/>
-        </span>
-        <h3>Sign Up</h3>
+        <h2>Join the project</h2>
+        <p>Add an adage to the codebase. Get it used by millions of people.</p>
         
         <form>
             <div class="input-group">
-                <label for="name">name</label>
+                <label for="name">name <span>*</span></label>
                 <div class="field">
-                    <input type="text" name="name" id="name">
-                    <i class="fa-solid fa-user"></i>
+                    <input type="text" name="name" id="name" bind:value={name}>
                 </div>
             </div>
 
             <div class="input-group">
-                <label for="email">email</label>
+                <label for="email">email <span>*</span></label>
                 <div class="field">
-                    <input type="email" name="email" id="email">
-                    <i class="fa-solid fa-at"></i>
+                    <input type="email" name="email" id="email" bind:value={email}>
                 </div>
             </div>
 
@@ -26,8 +41,7 @@
                 <div class="input-group">
                     <label for="country">Country</label>
                     <div class="field">
-                        <input type="text" name="country" id="country" list="countries">
-                        <i class="fa-solid fa-earth-africa"></i>
+                        <input type="text" name="country" id="country" list="countries" bind:value={country}>
                         <datalist id="countries">
                             <option value="Nigeria"></option>
                             <option value="South Africa"></option>
@@ -38,7 +52,7 @@
                 <div class="input-group">
                     <label for="gender">Gender</label>
                     <div class="field">
-                        <input type="text" name="gender" id="gender" list="genderlist">
+                        <input type="text" name="gender" id="gender" list="genderlist" bind:value={gender}>
                         <datalist id="genderlist">
                             <option value="Male"></option>
                             <option value="Femaale"></option>
@@ -48,53 +62,26 @@
             </div>
 
             <div class="input-group">
-                <label for="password">password</label>
+                <label for="password">password <span>*</span></label>
                 <div class="field">
-                    <input type="password" name="password" id="password">
-                    <i class="fa-solid fa-eye-slash"></i>
+                    <input type="password" name="password" id="password" bind:value={password} bind:this={passInput}>
+                    <i class="fa-solid fa-eye-slash" on:click={togglePassword}></i>
                 </div>
             </div>
 
             <div class="input-group">
-                <label for="kpassword">confirm password</label>
+                <label for="kpassword">confirm password <span>*</span></label>
                 <div class="field">
-                    <input type="password" name="kpassword" id="kpassword">
+                    <input type="password" name="cPassword" id="cPassword" bind:value={cPassword}>
                 </div>
             </div>
 
-            <ButtonPrimary type="submit">Submit</ButtonPrimary>
+            <ButtonSubmit>create new account</ButtonSubmit>
         </form>
-        <p class="form-foot">Not registered yet? <a href="/login" use:link>Sign up now</a></p>
+        <a href="/login" use:link class="form-foot"> Already registered? Log in</a>
     </section>
 </section>
 
-<script>
-    import {link} from 'svelte-spa-router';
-    import AdageIcon from "../components/AdageIcon.svelte";
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
-</script>
-
 <style>
-    .auth {
-        min-width: 300px;   
-        max-width: 400px;   
-        margin: 1rem auto;
-        padding: 1rem;
-        border-radius: 0.5rem;
-        color: hsl(var(--clr-white));
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 1rem;
-    }
-    .brand {
-        fill: hsl(var(--clr-secondary));
-        width: 64px;
-        height: 64px;
-    }
-    .flex-inline {
-        display: flex;
-        gap: 1rem;
-        align-items: center;
-    }
+
 </style>

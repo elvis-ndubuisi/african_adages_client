@@ -1,10 +1,19 @@
-<section class="modal-comp">
+<script>
+    import { createEventDispatcher } from 'svelte';
+    import {fade, slide} from 'svelte/transition';
+    import ButtonSubmit from '../buttons/ButtonSubmit.svelte';
+    import ButtonIcon from '../buttons/ButtonIcon.svelte';
+
+    const dispatch = createEventDispatcher();
+
+</script>
+
+<section class="modal-comp" transition:fade>
     <div class="flex-inline">
         <h2>Edit Profile</h2>
-        <ButtonIcon on:click={cancelModal}><i class="fa-solid fa-times"></i></ButtonIcon>
+        <ButtonIcon on:click={()=>dispatch('close')}><i class="fa-solid fa-times"></i></ButtonIcon>
     </div>
-    <img src="" alt="profile">
-    <form>
+    <form method="post" transition:slide|local>
         <div class="input-group">
             <label for="username">Username</label>
             <div class="field">
@@ -15,42 +24,28 @@
         <div class="input-group">
             <label for="email">Email</label>
             <div class="field">
-                <i class="fa-solid fa-earth-africa"></i>
                 <input type="email" name="email" id="email" autocomplete="off">
             </div>
         </div>
 
-        <ButtonPrimary><i class="fa-solid fa-plus"></i> <span>Update Profile</span></ButtonPrimary>
+        <div class="input-group">
+            <label for="email">Twitter</label>
+            <div class="field">
+                <input type="text" name="social" id="social" autocomplete="off">
+            </div>
+        </div>
+
+        <ButtonSubmit>Update Profile</ButtonSubmit>
     </form>
 </section>
 
-<script>
-    import { createEventDispatcher } from 'svelte';
-    import ButtonIcon from '../buttons/ButtonIcon.svelte';
-    import ButtonPrimary from '../buttons/ButtonPrimary.svelte';
 
-    const dispatch = createEventDispatcher();
-
-    function cancelModal(){
-        dispatch('close-modal')
-    }
-</script>
 
 <style>
-    img {
-        max-width: 140px;
-        max-height: 140px;
-        aspect-ratio: 1;
-        overflow: hidden;
-        object-fit: contain;
-        object-position: center;
-        background-color: hsl(var(--clr-primary), 0.2);
-    }
     .flex-inline {
         margin-bottom: 2rem;
     }
     h2 {
         text-align: left;
-        color: hsl(var(--clr-secondary));
     }
 </style>

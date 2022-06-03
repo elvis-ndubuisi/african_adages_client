@@ -1,16 +1,26 @@
+<script>
+    import {fade} from 'svelte/transition'
+    import {link} from 'svelte-spa-router'
+    import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
+    import ButtonSend from '../components/buttons/ButtonSend.svelte';
+
+    $:queryWin = 'AOD';
+</script>
+
 <section class="landing">
     <section class="comp-wrapper">
-        <h1>African Adage</h1>
-        <p>
-            The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. It can generate over 2 thousand random african proverbs/adages.
-        </p>
-        <p>
-            The African Adage Community appretiates you contritubions to its community.
-            Feel free to join and contribute to the project.
-        </p>
-        <div>
-            <ButtonPrimary><a href="/login" use:link>Add an Adage</a></ButtonPrimary>
-        </div>
+        <section class="cta">
+            <h2>African Adage</h2>
+            <h1>The death of an elderly man is like a burning library.</h1>
+            <p>
+                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. The African Adage Community appretiates you contritubions to its community.
+                Feel free to join and contribute to the project.
+            </p>
+
+            <section>
+                <ButtonCTA><a href="/join" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
+            </section>
+        </section>
     </section>
 </section>
 
@@ -19,53 +29,81 @@
         <h3>Endpoints</h3>
         <div>
             <ul>
-                <li class="selected">adage of the day</li>
-                <li>random adage</li>
-                <li>adage by tag</li>
-                <li>adage my country</li>
+                <li on:click={()=>queryWin="AOD"}>adage of the day</li>
+                <li on:click={()=>queryWin="RNDA"}>random adage</li>
+                <li on:click={()=>queryWin="AGT"}>adage by tag</li>
+                <li on:click={()=>queryWin="AGC"}>adage by country</li>
             </ul>
         </div>
     </aside>
     <main>
-        <h4>Adage of the Day</h4>
-        <div class="request">
-            <span>GET</span>
-            <code>https://afrianprober.com/api/adageoftheday</code>
-            <ButtonSecondary>Send</ButtonSecondary>
-        </div>
+        {#if queryWin === 'AGC'}
+                <section in:fade>
+                    <h4>Adage by Country</h4>
+                    <section class="request">
+                        <h4 class="method">GET</h4>
+                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
+                    </section>
+                    <section class="response"></section>
+                </section>
+            {:else if queryWin === 'RNDA'}
+                <section in:fade>
+                    <h4>Random Adage</h4>
+                    <section class="request">
+                        <h4 class="method">GET</h4>
+                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
+                    </section>
+                    <section class="response"></section>
+                </section>
+            {:else if queryWin === 'AGT'}
+                <section in:fade>
+                    <h4>Adage by Tag</h4>
+                    <section class="request">
+                        <h4 class="method">GET</h4>
+                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
+                    </section>
+                    <section class="response"></section>
+                </section>
+            {:else}
+                <section in:fade>
+                    <h4>Adage of the Day</h4>
+                    <section class="request">
+                        <h4 class="method">GET</h4>
+                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
+                    </section>
+                    <section class="response"></section>
+                </section>
+        {/if}
     </main>
 </section>
 
-<script>
-    import {link} from 'svelte-spa-router'
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
-    import ButtonTartiary from '../components/buttons/ButtonTertiary.svelte';
-    import ButtonSecondary from '../components/buttons/ButtonSecondary.svelte';
-</script>
 
 <style>
     .landing {
-        height: 330px;
-        background-color: hsl(var(--clr-primary));
-        color: hsl(var(--clr-white));
+        height: 370px;
         display: grid;
         place-items: center;
     }
-    .landing .comp-wrapper {
+    .cta {
+        max-width: 800px;
         display: flex;
         flex-direction: column;
-        align-content: center;
         gap: 1rem;
-    }
-    h1 {
-        font-size: 3rem;
-        font-weight: var(--fw-600);
         text-align: center;
     }
-    p{
-        max-width: 40rem;
-        text-align: justify;
+    .cta h1 {
+        font-size: 3rem;
+        color: var(--clr-accent);
     }
+    .cta p {
+        text-align: justify;
+        font-size: 0.9rem;
+    }
+   
 
     /* endpoints */
     .endpoints {
@@ -77,53 +115,78 @@
 
     aside {
         min-width: 230px;
-        border-right: solid 1px hsl(var(--clr-primary), 0.3);
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem 0.5rem;
-        color: hsl(var(--clr-dark));
     }
     aside > div {
         padding-left: 1rem;
         width: 100%;
+        border-left: solid 1px var(--clr-secondary);
     }
     .endpoints ul{
         display: inline-flex;
         width: inherit;
         flex-direction: column;
         align-items: left;
+        gap: 0.5rem;
     }
     .endpoints li {
         list-style: none;
         text-transform: capitalize;
         cursor: pointer;
-        font-weight: var(--fw-100);
+        font-weight: var(--fw-300);
         width: inherit;
-        padding: 0.4rem;
-        border-radius: 0.4rem;
+        padding: 0.6rem;
+        border-radius: 0.5rem;
+        color: var(--clr-background);
+        background-color: var(--clr-foreground);
+        transition: all 0.3s ease-in-out;
     }
-    .endpoints li:hover, .endpoints li:focus, .endpoints li.selected{
-        background-color: hsl(var(--clr-secondary), 0.2);
-        font-weight: var(--fw-200);
+    .endpoints li:hover, .endpoints li:focus{
+        opacity: 0.7;
     }
     main{
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem 0;
-        color: hsl(var(--clr-dark));
         flex: 1;
     }
+    main > section {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        padding: 1rem 0;
+        flex: 1;
+    }
+    main h4 {
+        color: var(--clr-accent);
+    }
 
+    /* code */
     .request {
         width: 100%;
         display: grid;
         grid-template-columns: min-content 1fr min-content;
         align-items: center;
-        gap: 1rem;
+        gap: 1.2rem;
         padding: 0.5rem 1rem;
-        background-color: hsl(var(--clr-dark));
-        color: hsl(var(--clr-white));
+        border-bottom: solid 2px var(--clr-foreground);
+        border-top: solid 2px var(--clr-foreground);
+    }
+    .request .method {
+        font-weight: var(--fw-800);
+        color: var(--clr-secondary);
+    }
+    .request .url {
+        color: var(--clr-accent);
+    }
+    .response {
+        background-color: var(--clr-foreground);
+        color: var(--clr-background);
+        padding: 0.5rem 1rem;
+        min-height: 200px;
     }
 </style>
