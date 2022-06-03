@@ -25,21 +25,6 @@
         <ButtonIcon><i class="fa-solid fa-pen-to-square"></i></ButtonIcon>
         <ButtonIcon><i class="fa-solid fa-trash-can"></i></ButtonIcon>
     </section>
-    <!-- <section class="content">
-        <p><slot name="adage"></slot></p>
-        <div>
-            <span><slot name="unique-to"></slot></span>
-            <span class="tags"><slot name="tag-items"></slot></span>
-        </div>
-    </section>
-    <div class='action'>
-        <ButtonIcon on:click={editAdage}>
-            <i class="fa-solid fa-pen-to-square"></i>
-        </ButtonIcon>
-        <ButtonIcon type='delete' on:click={deleteAdage}>
-            <i class="fa-solid fa-trash-can"></i>
-        </ButtonIcon>
-    </div> -->
 </li>
 
 
@@ -71,7 +56,9 @@
         flex-basis: 100%;
     }
     .action {
-        background-color: var(--clr-accent);
+        display: flex;
+        gap: 1rem;
+        background-color: var(--clr-background);
         max-width: auto;
     }
 </style>
