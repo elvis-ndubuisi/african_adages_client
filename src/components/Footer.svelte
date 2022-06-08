@@ -11,8 +11,6 @@
 </footer>
 
 <style>
-    footer {
-    }
     .comp-wrapper {
         padding: 1rem;
         display: flex;
