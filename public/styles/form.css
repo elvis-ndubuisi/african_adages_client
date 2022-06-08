@@ -39,6 +39,13 @@ label span {
   flex-direction: column;
   align-items: left;
 }
+.input-group .warning {
+  color: red;
+  padding: 0.3rem;
+}
+.warning.show {
+  display: block;
+}
 .field {
   background-color: var(--clr-foreground);
   border: solid 1px var(--clr-secondary);

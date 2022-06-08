@@ -149,3 +149,15 @@ a {
 /**********************
 *	Custom Properties 
  **********************/
+.toast {
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 1rem;
+  border-radius: 0.5rem;
+  background-color: white;
+  z-index: 10;
+  min-width: 230px;
+  min-height: 100px;
+}

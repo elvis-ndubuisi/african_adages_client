@@ -45,7 +45,9 @@
                         <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                         <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
                     </section>
-                    <section class="response"></section>
+                    <section class="response">
+                        <pre></pre>
+                    </section>
                 </section>
             {:else if queryWin === 'RNDA'}
                 <section in:fade>
@@ -55,7 +57,9 @@
                         <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                         <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
                     </section>
-                    <section class="response"></section>
+                    <section class="response">
+                        <pre></pre>
+                    </section>
                 </section>
             {:else if queryWin === 'AGT'}
                 <section in:fade>
@@ -65,7 +69,9 @@
                         <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                         <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
                     </section>
-                    <section class="response"></section>
+                    <section class="response">
+                        <pre></pre>
+                    </section>
                 </section>
             {:else}
                 <section in:fade>
@@ -75,7 +81,9 @@
                         <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                         <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
                     </section>
-                    <section class="response"></section>
+                    <section class="response">
+                        <pre></pre>
+                    </section>
                 </section>
         {/if}
     </main>
@@ -112,6 +120,11 @@
         position: relative;
         min-height: 400px;
     }
+    @media (max-width: 768px){
+        .endpoints {
+            flex-direction: column;
+        }
+    }
 
     aside {
         min-width: 230px;
@@ -131,6 +144,11 @@
         flex-direction: column;
         align-items: left;
         gap: 0.5rem;
+    }
+    @media (max-width: 768px){
+        .endpoints ul{
+            flex-direction: row;
+        }
     }
     .endpoints li {
         list-style: none;
@@ -188,5 +206,6 @@
         color: var(--clr-background);
         padding: 0.5rem 1rem;
         min-height: 200px;
+        border-radius: 0.5rem;
     }
 </style>
