@@ -1,10 +1,16 @@
 <script>
-    import {fade} from 'svelte/transition'
-    import {link} from 'svelte-spa-router'
+    import {onMount} from 'svelte';
+    import {fade} from 'svelte/transition';
+    import {link} from 'svelte-spa-router';
+    import axios from 'axios';
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
     import ButtonSend from '../components/buttons/ButtonSend.svelte';
 
     $:queryWin = 'AOD';
+
+    onMount(() => {
+        //  TODO:request adage of the day from api IF adage is absent in session storage.
+    })
 </script>
 
 <section class="landing">
@@ -13,7 +19,7 @@
             <h2>African Adage</h2>
             <h1>The death of an elderly man is like a burning library.</h1>
             <p>
-                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. The African Adage Community appretiates you contritubions to its community.
+                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. The African Adage Community appretiates your contritubions to its community.
                 Feel free to join and contribute to the project.
             </p>
 

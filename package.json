@@ -1,5 +1,5 @@
 {
-  "name": "svelte-app",
+  "name": "African Adage - client",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -19,7 +19,6 @@
   },
   "dependencies": {
     "axios": "^0.27.2",
-    "heroicons-for-svelte": "^0.0.10",
     "sirv-cli": "^2.0.0",
     "svelte-spa-router": "^3.2.0"
   }

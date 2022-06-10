@@ -3,6 +3,9 @@
 	import routes from './utilities/routes';
 	import Navbar from "./components/Navbar.svelte";
 	import Footer from './components/Footer.svelte';
+	import Toast from './components/modals/Toast.svelte'
+
+	let notify = false;
 </script>
 
 <Navbar/>
@@ -10,4 +13,7 @@
 	  <Router {routes}/>
 </main>
 <Footer/>
+{#if notify === true}
+	<Toast/>
+{/if}
 <!-- <section class="toast"></section> -->

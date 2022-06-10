@@ -1,21 +1,26 @@
 <script>
     import { onMount } from 'svelte';
     import {link, push} from 'svelte-spa-router';
-    import axios from 'axios';
+    import axios from '../utilities/axios';
+    import {} from '../utilities/browser';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
     import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
 
     let name = "";
     let nameRef;
     let nameErr = false;
+    let namePassed = false;
     let password = "";
+    let passwordRef;
     let passwordErr = false;
+    let passwordPassed = false;
     let cPassword = "";
     let email= "";
     let emailErr = false;
+    let emailPassed = false;
     let country = "";
     let gender = "";
-    let nameRegex = /^[a-zA-Z][a-zA-Z0-9-_]{4,8}$/;
+    let nameRegex = /^[a-zA-Z][a-zA-Z0-9-_]{4,15}$/;
     let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;   
     let passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
 
@@ -24,40 +29,49 @@
     })
 
     function togglePassword(e){
-        passInput.type === 'password' ? passInput.type = 'text' : passInput.type = 'password';
+        passwordRef.type === 'password' ? passwordRef.type = 'text' : passwordRef.type = 'password';
         e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
     }
 
     const validateName = () => {
-        let namePassed = nameRegex.test(name);
+        namePassed = nameRegex.test(name);
         !namePassed ? nameErr = true: nameErr = false;
         if(!name) nameErr = false;
     }
 
     const validateEmail = () => {
-        let emailPassed = emailRegex.test(email);
+        emailPassed = emailRegex.test(email);
         !emailPassed ? emailErr = true: emailErr = false;
         if(!email) emailErr = false;
     }
 
     const validatePassword = () => {
-        let passwordPassed = passwordRegex.test(password);
+        passwordPassed = passwordRegex.test(password);
         !passwordPassed ? passwordErr = true: passwordErr = false;
         if(!password) passwordErr = false;
     }
 
-    $:registerUser = async () =>{
-        if(!name || !email || !country || !gender || !password){
-            console.log('provide required fields')
-            return ;
+    $: registerUser = async () =>{
+        try {
+            // if(!name || !email || !country || !gender || !password){
+            //     // console.log('provide required fields')
+            //     throw new Error('provide required field')
+            //     // return ;
+            // }
+            
+            // if(password !== cPassword){
+            //     // console.log('password mis-matched')
+            //     throw new Error('password mis-matched')
+            //     // return;
+            // }
+            const response = await axios.post('account/register', {name, email, country, gender, password}, {withCredentials: true});
+            // if(response.status === 200){
+            //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+            //     push('/dashboard')
+            // }
+        } catch (err) {
+            console.log(err)
         }
-        
-        if(password !== cPassword){
-            console.log('password mis-matched')
-            return;
-        }
-        const response = await axios.post('http://localhost:8080/account/register', {name, email, country, gender, password }, {})
-        // await push('/dashboard')
     }
     
  
@@ -116,7 +130,7 @@
             <div class="input-group">
                 <label for="password">password <span>*</span></label>
                 <div class="field">
-                    <input type="password" name="password" id="password" bind:value={password} on:input={validatePassword}>
+                    <input type="password" name="password" id="password" bind:value={password} bind:this={passwordRef} on:input={validatePassword}>
                     <i class="fa-solid fa-eye-slash" on:click={togglePassword}></i>
                 </div>
                 {#if passwordErr === true}

@@ -2,19 +2,23 @@
     import {onMount} from 'svelte';
     import { link } from 'svelte-spa-router';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
-    import axios from 'axios';
+    import axios from '../utilities/axios';
 
     let emailRef;
     let email = "";
     let emailErr = false;
     let emailPassed = false;
     let password = "";
-    let passInput = "";
+    let passwordRef = "";
 
-    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;   
+    let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    
+    onMount(()=>{
+        emailRef.focus();
+    })
 
-    function togglePassword(e){
-        passInput.type === 'password' ? passInput.type = 'text' : passInput.type = 'password';
+    const togglePassword = (e) => {
+        passwordRef.type === 'password' ? passwordRef.type = 'text' : passwordRef.type = 'password';
         e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
     }
 
@@ -24,21 +28,30 @@
     }
 
 
-    $: submit = async() => {
-        await axios.post('http://localhost:8000/account/login', {email, password})
-        await push('/dashboard')
+    $: login = async() => {
+        // if(!email || !password || emailPassed !== true){
+        //     console.log('provide all fields');
+        //     return;
+        // }
+        try {
+            const response = await axios.post('/account/login', {email, password})
+            // if(response.status === 200){
+            //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+            //     push('/dashboard')
+            // }
+            console.log(response)
+        } catch (err) {
+            console.log(err)
+        }
     }
 
-    onMount(()=>{
-        emailRef.focus();
-    })
 </script>
 
 <section class="auth-wrapper">
     <section class="auth">
         <h2>Sign In</h2>
         
-        <form on:submit|preventDefault={submit}>
+        <form on:submit|preventDefault={login}>
             <div class="input-group">
                 <label for="identity">email</label>
                 <div class="field">
@@ -52,7 +65,7 @@
             <div class="input-group">
                 <label for="password">password</label>
                 <div class="field">
-                    <input type="password" name="password" id="password" bind:value={password} bind:this={passInput}>
+                    <input type="password" name="password" id="password" bind:value={password} bind:this={passwordRef}>
                     <i class="fa-solid fa-eye-slash" on:click={togglePassword}></i>
                 </div>
             </div>
