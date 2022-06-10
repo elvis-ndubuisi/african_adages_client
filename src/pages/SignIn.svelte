@@ -44,7 +44,6 @@
             console.log(err)
         }
     }
-
 </script>
 
 <section class="auth-wrapper">

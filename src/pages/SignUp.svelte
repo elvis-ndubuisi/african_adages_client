@@ -74,7 +74,6 @@
         }
     }
     
- 
 </script>
 
 <section class="auth-wrapper">
