@@ -11,8 +11,6 @@
 </footer>
 
 <style>
-    footer {
-    }
     .comp-wrapper {
         padding: 1rem;
         display: flex;
@@ -34,7 +32,7 @@
         font-size: 1.6rem;
         opacity: 0.8;
     }
-    .socials i:hover, .social i:focus {
+    .socials i:hover, .socials i:focus {
         opacity: 1;
         color: var(--clr-accent);
     }
