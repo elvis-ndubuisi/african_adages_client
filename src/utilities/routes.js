@@ -6,6 +6,6 @@ import SignUp from "../pages/SignUp.svelte";
 export default {
   "/": Home,
   "/login": SignIn,
-  "/join": SignUp,
+  "/register": SignUp,
   "/dashboard": Dashboard,
 };

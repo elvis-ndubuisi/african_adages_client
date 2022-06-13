@@ -1,5 +1,6 @@
 <script>
     import {location, link} from 'svelte-spa-router';
+    // import { link } from 'svelte-routing';
     import AdageLogo from './AdageLogo.svelte';
 </script>   
 
@@ -10,7 +11,7 @@
             {#if $location === "/"}
                 <li><a href="#endpoints">endpoints</a></li>
             {/if}
-            <li><a href="/join" use:link>Sign-in</a></li>
+            <li><a href="/register" use:link>Sign-in</a></li>
             <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api" tooltip="visit repo"><i class="fa-brands fa-github fa-xl"></i></a></li>
         </ul>
     </div>

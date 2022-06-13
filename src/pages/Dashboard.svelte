@@ -1,4 +1,9 @@
 <script>
+    import { onDestroy, onMount } from 'svelte';
+    import { push, replace } from 'svelte-spa-router';
+    import { auth, user } from '../store/app';
+    import jwtDecode from 'jwt-decode';
+    import axios from '../utilities/axios';
     import ButtonDark from '../components/buttons/ButtonDark.svelte';
     import ButtonSimple from '../components/buttons/ButtonSimple.svelte';
     import AdageItem from '../components/AdageItem.svelte';
@@ -6,13 +11,35 @@
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
 
+    // Variables
+    let isAuthenticated;
+    let profile;
+    let name = "";
+    let email = "";
+    let gender = "";
+    let country = "";
+    let dToken = "";
+
     let searchValue = '';
     $:whichModal = "";
+
     const modal = {
         profileModal: "EPR",
         addModal: "AAG",
         editModal: "EAD",
     }
+    // Functions
+
+    const authSubscribe = auth.subscribe(currentlyAuth => {
+        isAuthenticated = currentlyAuth;
+    })
+
+    const userAdage = async () => {
+        return await axios.get('/adage');
+    }
+
+    let promise = userAdage();
+
     const dummy_adage = [
         {
             id: 1,
@@ -40,50 +67,70 @@
         },
         
     ];
+    
+    onMount(async ()=>{
+        if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
+        profile = JSON.parse(sessionStorage.getItem('profile'));
+        if(!profile){
+            replace('/login');
+            return;
+        };
+        name = profile.name;
+        email = profile.email;
+        gender = profile.gender;
+        country = profile.country;
+        dToken = await jwtDecode(isAuthenticated.user);
+
+    });
+
+    onDestroy(authSubscribe);
 </script>
 
-<section class="dashboard">
-    <main class="comp-wrapper">
-        <h2>Welcome back</h2>
-        <header class="header">
-            <section>
-                <div>
-                    <h3>Elvis Ike Ogene</h3>
-                    <a href="https://google" class="socials">@elvisike</a>
-                    <p>elvisikeog@gmail.com</p>
-                    <p>country</p>
-                </div>
-                <div>
-                    <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
-                    <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
-                    <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
-                </div>
-            </section>
-            <section>
-                <div class="field">
-                    <input type="text" placeholder="search adage" bind:value={searchValue}>
-                    <span><i class="fa-solid fa-magnifying-glass"></i></span>
-                </div>
-                <div></div>
-            </section>
-        </header>
-        <ul class="adages">
-            {#each dummy_adage as adage}
-                <AdageItem adage_payload={adage}/>
-            {/each}
-        </ul>
-    </main>
-</section>
+{#if isAuthenticated.isAuth === true && isAuthenticated.user !== ""}
+    <section class="dashboard">
+        <main class="comp-wrapper">
+            <h2>Welcome back!</h2>
+            <header class="header">
+                <section>
+                    <div>
+                        <h3>{name}</h3>
+                        <a href="https://google" class="socials">@elvisike</a>
+                        <p>{email}</p>
+                        <p>{country}</p>
+                    </div>
+                    <div>
+                        <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
+                        <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
+                        <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
+                    </div>
+                </section>
+                <section>
+                    <div class="field">
+                        <input type="text" placeholder="search adage" bind:value={searchValue}>
+                        <span><i class="fa-solid fa-magnifying-glass"></i></span>
+                    </div>
+                    <div></div>
+                </section>
+            </header>
+            <ul class="adages">
+                {#await axios.get('/adage')}
+                <p>{promise}</p>
+                {/await}
+                {#each dummy_adage as adage}
+                    <AdageItem adage_payload={adage}/>
+                {/each}
+            </ul>
+        </main>
+    </section>
 
-{#if whichModal !== "" && whichModal === 'EPR'}
-    <EditProfile on:close={()=>whichModal = ""}/>
-    {:else if whichModal !== "" && whichModal === 'AAG'}
-    <AddAdage on:close={()=>whichModal = ""}/>
-    {:else if whichModal !== "" && whichModal === 'EAD'}
-    <EditAdage on:close={()=>whichModal = ""}/>
+    {#if whichModal !== "" && whichModal === 'EPR'}
+        <EditProfile on:close={()=>whichModal = ""}/>
+        {:else if whichModal !== "" && whichModal === 'AAG'}
+        <AddAdage on:close={()=>whichModal = ""}/>
+        {:else if whichModal !== "" && whichModal === 'EAD'}
+        <EditAdage on:close={()=>whichModal = ""}/>
+    {/if}
 {/if}
-
-
 
 <style>
     .dashboard {

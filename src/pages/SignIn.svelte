@@ -1,8 +1,11 @@
 <script>
+    import axios from 'axios';
     import {onMount} from 'svelte';
-    import { link } from 'svelte-spa-router';
+    import { auth, user } from '../store/app';
+    import { link, push } from 'svelte-spa-router';
+    // import { setSessionStorage } from '../utilities/browser';
+    // import {link} from 'svelte-routing';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
-    import axios from '../utilities/axios';
 
     let emailRef;
     let email = "";
@@ -29,17 +32,34 @@
 
 
     $: login = async() => {
-        // if(!email || !password || emailPassed !== true){
-        //     console.log('provide all fields');
-        //     return;
-        // }
+        if(!email || !password || emailPassed !== true){
+            console.log('provide all fields');
+            return;
+        }
         try {
-            const response = await axios.post('/account/login', {email, password})
-            // if(response.status === 200){
-            //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-            //     push('/dashboard')
-            // }
-            console.log(response)
+            const response = await axios.post('http://localhost:5000/account/login', {email, password})
+            if(response.status === 200){
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+
+                sessionStorage.setItem('user', response.data.accessToken);
+                sessionStorage.setItem('profile', JSON.stringify({
+                    name: response.data.name,
+                    country: response.data.country,
+                    email: response.data.email,
+                    gender: response.data.gender
+                }))
+
+                // user.update((user)=>{user = response.data.accessToken})
+
+                auth.update((state) => {
+                    state.isAuth = true,
+                    state.user = response.data.accessToken;
+
+                    return state;
+                })
+                // auth.set({isAuth: true, user: response.data.accessToken})
+                push('/dashboard')
+            }
         } catch (err) {
             console.log(err)
         }
@@ -72,6 +92,6 @@
 
             <ButtonSubmit>Sign In</ButtonSubmit>
         </form>
-        <a href="/join" use:link class="form-foot">Not registered yet? Join</a>
+        <a href="/register" use:link class="form-foot">Not registered yet? Join</a>
     </section>
 </section>

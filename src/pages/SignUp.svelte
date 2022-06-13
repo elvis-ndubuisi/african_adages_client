@@ -1,6 +1,8 @@
 <script>
+    import {auth} from '../store/app';
     import { onMount } from 'svelte';
     import {link, push} from 'svelte-spa-router';
+    // import {link} from 'svelte-routing';
     import axios from '../utilities/axios';
     import {} from '../utilities/browser';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
@@ -53,22 +55,23 @@
 
     $: registerUser = async () =>{
         try {
-            // if(!name || !email || !country || !gender || !password){
-            //     // console.log('provide required fields')
-            //     throw new Error('provide required field')
-            //     // return ;
-            // }
+            if(!name || !email || !country || !gender || !password){
+                // console.log('provide required fields')
+                throw new Error('provide required field')
+                // return ;
+            }
             
-            // if(password !== cPassword){
-            //     // console.log('password mis-matched')
-            //     throw new Error('password mis-matched')
-            //     // return;
-            // }
-            const response = await axios.post('account/register', {name, email, country, gender, password}, {withCredentials: true});
-            // if(response.status === 200){
-            //     axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-            //     push('/dashboard')
-            // }
+            if(password !== cPassword){
+                // console.log('password mis-matched')
+                throw new Error('password mis-matched')
+                // return;
+            }
+            const response = await axios.post('account/register', {name, email, country, gender, password});
+            if(response.status === 200){
+                axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+
+                await push('/dashboard')
+            }
         } catch (err) {
             console.log(err)
         }

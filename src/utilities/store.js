@@ -1,3 +1,3 @@
 import { writable } from "svelte/store";
 
-export const modalState = writable(true);
+export const auth = writable(sessionStorage.getItem("token"));

@@ -2,6 +2,7 @@
     import {onMount} from 'svelte';
     import {fade} from 'svelte/transition';
     import {link} from 'svelte-spa-router';
+    // import {link} from 'svelte-routing';
     import axios from 'axios';
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
     import ButtonSend from '../components/buttons/ButtonSend.svelte';
@@ -24,7 +25,7 @@
             </p>
 
             <section>
-                <ButtonCTA><a href="/join" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
+                <ButtonCTA><a href="/register" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
             </section>
         </section>
     </section>
