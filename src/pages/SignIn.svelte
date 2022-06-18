@@ -4,6 +4,7 @@
     import { auth, notify } from '../store/app';
     import { link, push } from 'svelte-spa-router';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
+    import axios from '../utilities/axios';
 
     // Varaibles
     let emailRef;
