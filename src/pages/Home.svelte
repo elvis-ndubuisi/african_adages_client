@@ -1,15 +1,27 @@
 <script>
+    import axios from '../utilities/axios';
     import {onMount} from 'svelte';
-    import {fade} from 'svelte/transition';
+    import {notify} from '../store/app';
     import {link} from 'svelte-spa-router';
-    import axios from 'axios';
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
-    import ButtonSend from '../components/buttons/ButtonSend.svelte';
 
-    $:queryWin = 'AOD';
+    $: adage = "The death of an elderly man is like a burning library";
 
-    onMount(() => {
-        //  TODO:request adage of the day from api IF adage is absent in session storage.
+    onMount(async () => {
+        // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
+        const cachedAdage = sessionStorage.getItem('adage');
+        if(!cachedAdage){
+            try {
+                const response = await axios.get('/adage/aod');
+                if(response.status === 200) {
+                    adage = response.data.adage;
+                    sessionStorage.setItem('adage', response.data.adage);
+                }
+                // console.log(response);
+            } catch (err) {
+                console.log('there was an error')
+            }
+        }
     })
 </script>
 
@@ -17,14 +29,14 @@
     <section class="comp-wrapper">
         <section class="cta">
             <h2>African Adage</h2>
-            <h1>The death of an elderly man is like a burning library.</h1>
+            <h1>{adage}</h1>
             <p>
                 The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. The African Adage Community appretiates your contritubions to its community.
                 Feel free to join and contribute to the project.
             </p>
 
             <section>
-                <ButtonCTA><a href="/join" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
+                <ButtonCTA><a href="/register" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
             </section>
         </section>
     </section>
@@ -32,66 +44,53 @@
 
 <section class="endpoints comp-wrapper" id="endpoints">
     <aside>
-        <h3>Endpoints</h3>
-        <div>
-            <ul>
-                <li on:click={()=>queryWin="AOD"}>adage of the day</li>
-                <li on:click={()=>queryWin="RNDA"}>random adage</li>
-                <li on:click={()=>queryWin="AGT"}>adage by tag</li>
-                <li on:click={()=>queryWin="AGC"}>adage by country</li>
-            </ul>
-        </div>
+        <section>
+            <h3>Endpoints</h3>
+            <div id="lks">
+                <ul>
+                    <li> <a href="#AOD">adage of the day</a></li>
+                    <li> <a href="#RNDA">random adage</a></li>
+                    <li> <a href="#QRY">random adage by filter</a></li>
+                </ul>
+            </div>
+        </section>
     </aside>
     <main>
-        {#if queryWin === 'AGC'}
-                <section in:fade>
-                    <h4>Adage by Country</h4>
-                    <section class="request">
-                        <h4 class="method">GET</h4>
-                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
-                    </section>
-                    <section class="response">
-                        <pre></pre>
-                    </section>
-                </section>
-            {:else if queryWin === 'RNDA'}
-                <section in:fade>
-                    <h4>Random Adage</h4>
-                    <section class="request">
-                        <h4 class="method">GET</h4>
-                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
-                    </section>
-                    <section class="response">
-                        <pre></pre>
-                    </section>
-                </section>
-            {:else if queryWin === 'AGT'}
-                <section in:fade>
-                    <h4>Adage by Tag</h4>
-                    <section class="request">
-                        <h4 class="method">GET</h4>
-                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
-                    </section>
-                    <section class="response">
-                        <pre></pre>
-                    </section>
-                </section>
-            {:else}
-                <section in:fade>
-                    <h4>Adage of the Day</h4>
-                    <section class="request">
-                        <h4 class="method">GET</h4>
-                        <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                        <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend>
-                    </section>
-                    <section class="response">
-                        <pre></pre>
-                    </section>
-                </section>
-        {/if}
+        <section id="RNDA">
+            <h4>Adage of the Day</h4>
+            <section class="request">
+                <h4 class="method">GET</h4>
+                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+            </section>
+            <section class="response">
+                <pre></pre>
+            </section>
+        </section>
+
+        <section id="AOD">
+            <h4>Random Adage</h4>
+            <section class="request">
+                <h4 class="method">GET</h4>
+                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+            </section>
+            <section class="response">
+                <pre></pre>
+            </section>
+        </section>
+
+        <section id="QRY">
+            <h4>Random Adage by Filter</h4>
+            <section class="request">
+                <h4 class="method">GET</h4>
+                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+            </section>
+            <section class="response">
+                <pre></pre>
+            </section>
+        </section>
     </main>
 </section>
 
@@ -134,15 +133,25 @@
 
     aside {
         min-width: 230px;
+        padding: 1rem 0.5rem;
+        position: relative;
+    }
+    @media screen  and (max-width: 768px){
+        aside {
+            display: none;
+        }
+    }
+    aside section {
+        position: sticky;
+        top: 0;
+        left: 0;
+        width: inherit;
         display: flex;
         flex-direction: column;
         gap: 0.5rem;
-        padding: 1rem 0.5rem;
     }
-    aside > div {
-        padding-left: 1rem;
+    aside #lks {
         width: 100%;
-        border-left: solid 1px var(--clr-secondary);
     }
     .endpoints ul{
         display: inline-flex;

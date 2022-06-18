@@ -1,14 +1,15 @@
+<script>
+    // import {link} from 'svelte-routing';
+    import { link } from 'svelte-spa-router';
+    import AdageIcon from './AdageIcon.svelte';
+</script>
+
 <a href="/" use:link class="adage-logo">
     <span class="svg">
         <AdageIcon/>
     </span>
     <span class="text"><span>African</span> Adages</span>
 </a>
-
-<script>
-    import {link} from 'svelte-spa-router';
-    import AdageIcon from './AdageIcon.svelte';
-</script>
 
 <style>
     .adage-logo {
