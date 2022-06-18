@@ -1,25 +1,20 @@
 <script>
-    import axios from 'axios';
+    import axios from '../utilities/axios';
     import {onMount} from 'svelte';
-    import { auth, user } from '../store/app';
+    import { auth, notify } from '../store/app';
     import { link, push } from 'svelte-spa-router';
-    // import { setSessionStorage } from '../utilities/browser';
-    // import {link} from 'svelte-routing';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
 
+    // Varaibles
     let emailRef;
     let email = "";
     let emailErr = false;
     let emailPassed = false;
     let password = "";
     let passwordRef = "";
-
     let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    
-    onMount(()=>{
-        emailRef.focus();
-    })
 
+    // Functions
     const togglePassword = (e) => {
         passwordRef.type === 'password' ? passwordRef.type = 'text' : passwordRef.type = 'password';
         e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
@@ -30,17 +25,23 @@
         !emailPassed ? emailErr = true: emailErr = false;
     }
 
-
     $: login = async() => {
         if(!email || !password || emailPassed !== true){
-            console.log('provide all fields');
+            notify.update((state)=>{
+                state.isIncident = true,
+                state.reason = 'provide required fields';
+                state.status = 'warning';
+                return state;
+            })
             return;
         }
+
         try {
-            const response = await axios.post('http://localhost:5000/account/login', {email, password})
+            const response = await axios.post('account/login', {email, password}, {withCredentials: true})
+
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-
+                // set session data.
                 sessionStorage.setItem('user', response.data.accessToken);
                 sessionStorage.setItem('profile', JSON.stringify({
                     name: response.data.name,
@@ -48,22 +49,29 @@
                     email: response.data.email,
                     gender: response.data.gender
                 }))
-
-                // user.update((user)=>{user = response.data.accessToken})
-
+                
                 auth.update((state) => {
                     state.isAuth = true,
                     state.user = response.data.accessToken;
-
+                    
                     return state;
                 })
-                // auth.set({isAuth: true, user: response.data.accessToken})
                 push('/dashboard')
             }
         } catch (err) {
+            notify.update((state)=>{
+                state.isIncident = true,
+                state.reason = 'no internet';
+                state.status = 'error';
+                return state;
+            })
             console.log(err)
         }
     }
+    
+    onMount(()=>{
+        emailRef.focus();
+    })
 </script>
 
 <section class="auth-wrapper">

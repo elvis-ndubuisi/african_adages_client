@@ -1,26 +1,57 @@
-<script></script>
+<script>
+    import {createEventDispatcher} from 'svelte';
+    export let status = "";
+    export let reason = "";
 
-<section class="toast">
-    <h4>
-        <slot name="status"></slot>
-    </h4>
-    <p>
-        <slot name="reason"></slot>
-    </p>
+    const dispatch = createEventDispatcher();
+</script>
+
+<section class="toast warning">
+    <div class="flex-inline">
+        <p class="status">{status}</p>
+        <span class="close" on:click={()=>dispatch('closeToast')}>X</span>
+    </div>
+    <p class="reason">{reason}</p>
 </section>
 
 <style>
     .toast {
-        position: absolute;
+        position: fixed;
         top: 10%;
-        left: 50%;
-        transform: translate(-50%, -50%);
+        right: 6%;
+        /* transform: translate(-50%, -50%); */
         padding: 1rem;
         border-radius: 0.5rem;
         background-color: white;
+        color: black;
         z-index: 10;
-        min-width: 230px;
+        width: 250px;
         min-height: 100px;
-        border: solid 2px black;
+        display: flex;
+        flex-direction: column;
+        align-content: center;
+        gap: 1rem;
     }
+    .status {
+        font-size: 1.4rem;
+        font-weight: var(--fw-800);
+        font-family: var(--ff-secondary);
+        text-transform: capitalize;
+    }
+    .close {
+        width: 32px;
+        height: 32px;
+        background-color: var(--clr-background);
+        color: var(--clr-secondary);
+        border-radius: 4px;
+        cursor: pointer;
+        display: grid;
+        place-content: center;
+    }
+    .reason {
+        text-align: center;
+    }
+    .toast.warning{
+    }
+    .toast.error{}
 </style>

@@ -1,31 +1,44 @@
 <script>
+	import {notify} from './store/app';
 	import Router from 'svelte-spa-router';
 	import routes from './utilities/routes';
 	import Navbar from "./components/Navbar.svelte";
 	import Footer from './components/Footer.svelte';
 	import Toast from './components/modals/Toast.svelte'
-	// import {Route, Router} from 'svelte-routing';
-	// import ProtectedRoute from './ProtectedRoute.svelte';
+	import { onDestroy } from 'svelte';
 
-	import Home from './pages/Home.svelte';
-	import Login from './pages/SignIn.svelte';
-	import Register from './pages/SignUp.svelte';
-	import Dashboard from './pages/Dashboard.svelte';
+	let noticeState;
 
-	let notify = false;
+	// Functions
+	const noticeSubscriber = notify.subscribe(notice => {
+		noticeState = notice;
+    })
+
+	const closeToast = () => {
+		notify.set((state)=>{
+			state.isIncident = false,
+			state.reason = "";
+			state.status = "";
+		})
+	}
+
+	const outToast = () => {
+		setTimeout(() => {
+			noticeState.isIncident = false;
+			noticeState.status = "";
+			noticeState.reason = "";
+		}, 3000);
+	}
+
+	onDestroy(noticeSubscriber)
 </script>
 
 <Navbar/>
 <main class="app-dynamic">
-	<!-- <Router>
-		<Route path='/' component={Home}/>
-		<Route path='/login' component={Login} />
-		<Route path='/register' component={Register} />
-	</Router> -->
 	<Router {routes}/>
 </main>
 <Footer/>
-{#if notify === true}
-	<Toast/>
+{#if noticeState.isIncident === true}
+	<Toast reason={noticeState.reason} status={noticeState.status} on:closeToast={closeToast}/>
+	{outToast()}
 {/if}
-<!-- <section class="toast"></section> -->

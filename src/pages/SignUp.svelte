@@ -1,5 +1,5 @@
 <script>
-    import {auth} from '../store/app';
+    import { auth, notify } from '../store/app';
     import { onMount } from 'svelte';
     import {link, push} from 'svelte-spa-router';
     // import {link} from 'svelte-routing';
@@ -8,6 +8,7 @@
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
     import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
 
+    // Variables
     let name = "";
     let nameRef;
     let nameErr = false;
@@ -26,10 +27,7 @@
     let emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;   
     let passwordRegex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}/
 
-    onMount(()=>{
-        nameRef.focus();
-    })
-
+    // Functions
     function togglePassword(e){
         passwordRef.type === 'password' ? passwordRef.type = 'text' : passwordRef.type = 'password';
         e.target.classList.contains('fa-eye-slash') ? e.target.classList.replace("fa-eye-slash", "fa-eye") : e.target.classList.replace("fa-eye", "fa-eye-slash")
@@ -55,27 +53,64 @@
 
     $: registerUser = async () =>{
         try {
-            if(!name || !email || !country || !gender || !password){
-                // console.log('provide required fields')
-                throw new Error('provide required field')
-                // return ;
+            if(!name || !email || !country || !password){
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.status = "warning";
+                    state.reason = 'Please provide required fields'
+
+                    return state;
+                })
+                return;
             }
             
             if(password !== cPassword){
-                // console.log('password mis-matched')
-                throw new Error('password mis-matched')
-                // return;
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.status = "error";
+                    state.reason = 'Password mis-matched'
+
+                    return state;
+                })
+                return;
             }
-            const response = await axios.post('account/register', {name, email, country, gender, password});
+
+            const response = await axios.post('account/register', {name, email, country, gender, password}, {withCredentials: true});
+            
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
 
-                await push('/dashboard')
+                sessionStorage.setItem('user', response.data.accessToken);
+                sessionStorage.setItem('profile', JSON.stringify({
+                    name: response.data.name,
+                    country: response.data.country,
+                    email: response.data.email,
+                    gender: response.data.gender
+                }))
+
+                auth.update((state) => {
+                    state.isAuth = true,
+                    state.user = response.data.accessToken;
+
+                    return state;
+                })
+                push('/dashboard')
             }
         } catch (err) {
+            notify.update((state)=>{
+                state.isIncident = true;
+                state.status = "error";
+                state.reason = 'grave error';
+
+                return state;
+            })
             console.log(err)
         }
     }
+
+    onMount(()=>{
+        nameRef.focus();
+    })
     
 </script>
 
@@ -107,7 +142,7 @@
 
             <div class="flex-inline">
                 <div class="input-group">
-                    <label for="country">Country</label>
+                    <label for="country">Country <span>*</span></label>
                     <div class="field">
                         <input type="text" name="country" id="country" list="countries" bind:value={country}>
                         <datalist id="countries">

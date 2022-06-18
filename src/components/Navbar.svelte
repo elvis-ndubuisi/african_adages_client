@@ -11,8 +11,10 @@
             {#if $location === "/"}
                 <li><a href="#endpoints">endpoints</a></li>
             {/if}
-            <li><a href="/register" use:link>Sign-in</a></li>
-            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api" tooltip="visit repo"><i class="fa-brands fa-github fa-xl"></i></a></li>
+            {#if $location !== '/dashboard'}
+                <li><a href="/dashboard" use:link>Dashboard</a></li>
+            {/if}
+            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api" tooltip="visit repo">GitHub<i class="fa-solid fa-link fa-sm"></i></a></li>
         </ul>
     </div>
 </nav>
@@ -42,6 +44,7 @@
         Padding: 0.3rem 0.5rem;
         color: inherit;
         border-bottom: solid 2px transparent;
+        gap: 0.3rem;
     }
     a:hover, a:focus{
         border-bottom-color: var(--clr-secondary);

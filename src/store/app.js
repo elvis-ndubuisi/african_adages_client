@@ -5,6 +5,12 @@ const authState = {
   user: sessionStorage.getItem("user"),
 };
 
+const toast = {
+  isIncident: false,
+  status: "",
+  reason: "",
+};
+
 // export const appError = writable({ stat, reason });
 export const auth = writable(authState);
-export const user = writable(sessionStorage.getItem("user"));
+export const notify = writable(toast);

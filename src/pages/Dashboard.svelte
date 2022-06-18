@@ -1,12 +1,12 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
-    import { push, replace } from 'svelte-spa-router';
-    import { auth, user } from '../store/app';
+    import { replace } from 'svelte-spa-router';
+    import { auth } from '../store/app';
     import jwtDecode from 'jwt-decode';
-    import axios from '../utilities/axios';
     import ButtonDark from '../components/buttons/ButtonDark.svelte';
     import ButtonSimple from '../components/buttons/ButtonSimple.svelte';
-    import AdageItem from '../components/AdageItem.svelte';
+    import ButtonSend from '../components/buttons/ButtonSend.svelte';
+    import Adages from '../components/Adages.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
@@ -18,7 +18,7 @@
     let email = "";
     let gender = "";
     let country = "";
-    let dToken = "";
+    let id = "";
 
     let searchValue = '';
     $:whichModal = "";
@@ -28,59 +28,27 @@
         addModal: "AAG",
         editModal: "EAD",
     }
+    
     // Functions
-
     const authSubscribe = auth.subscribe(currentlyAuth => {
         isAuthenticated = currentlyAuth;
     })
-
-    const userAdage = async () => {
-        return await axios.get('/adage');
-    }
-
-    let promise = userAdage();
-
-    const dummy_adage = [
-        {
-            id: 1,
-            adage: " A bird that flies off the earth and lands on an anthill is still on the ground. ",
-            country: "Igbo",
-            tags : "tags"
-        },
-        {
-            id: 2,
-            adage: "He that beats the drum for the mad man to dance is no better than the mad man himself.",
-            country: "African",
-            tags : "tags"
-        },
-        {
-            id: 3,
-            adage: "No matter how beautiful and well-crafted a coffin might look, it will not make anyone wish for death",
-            country: "African",
-            tags : "tags"
-        },
-        {
-            id: 2,
-            adage: " If you do not have patience you cannot make beer",
-            country: "Ovambo",
-            tags : "tags"
-        },
-        
-    ];
     
     onMount(async ()=>{
-        if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
+        // if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
+
+        // if not profile is in session, redirect to login page.
         profile = JSON.parse(sessionStorage.getItem('profile'));
         if(!profile){
             replace('/login');
             return;
         };
+        // else aquire profile.
         name = profile.name;
         email = profile.email;
         gender = profile.gender;
         country = profile.country;
-        dToken = await jwtDecode(isAuthenticated.user);
-
+        id = await jwtDecode(isAuthenticated.user);
     });
 
     onDestroy(authSubscribe);
@@ -109,17 +77,11 @@
                         <input type="text" placeholder="search adage" bind:value={searchValue}>
                         <span><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
-                    <div></div>
+                    <ButtonSend>Fetch</ButtonSend>
+                    <!-- <div></div> -->
                 </section>
             </header>
-            <ul class="adages">
-                {#await axios.get('/adage')}
-                <p>{promise}</p>
-                {/await}
-                {#each dummy_adage as adage}
-                    <AdageItem adage_payload={adage}/>
-                {/each}
-            </ul>
+            <Adages/>
         </main>
     </section>
 
@@ -181,11 +143,6 @@
     .field {
         border-color: var(--clr-background);
         flex: 1;
-    }
-    .adages {
-        width: 100%;
-        display: inline-flex;
-        flex-direction: column;
     }
     /* .img-holder {
         min-height: 100px;
