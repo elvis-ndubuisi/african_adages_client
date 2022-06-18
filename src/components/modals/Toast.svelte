@@ -51,7 +51,7 @@
     .reason {
         text-align: center;
     }
-    .toast.warning{
+    /* .toast.warning{
     }
-    .toast.error{}
+    .toast.error{} */
 </style>
