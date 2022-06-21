@@ -10,18 +10,6 @@
     const dispatch = createEventDispatcher();
 
     // Functions
-    // const fetchData = async (page) => {
-    //     try {
-    //         const response = await axios.get('cnt/profile/adages', {page: ''});            
-    //         if(response.status = 200) {
-    //             let data  = await response.data;
-    //             return data;
-    //         };
-    //     } catch (err) {
-    //         console.log('error at adages ' + err)
-    //     }
-    // }
-
     const selectModal = (modalStr) => {
         modalStore.update((state)=>{
             if(state.shouldDisplay === ""){
@@ -43,7 +31,6 @@
 
 
     onMount(async ()=>{
-        // adages = await fetchData();
         adages = await fetchAdages();
         let cp = adages.page;
         if(cp) {

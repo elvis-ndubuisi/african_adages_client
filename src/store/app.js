@@ -1,4 +1,4 @@
-import { writable, readable } from "svelte/store";
+import { writable } from "svelte/store";
 
 const authState = {
   isAuth: !sessionStorage.getItem("token") ? false : true,
@@ -18,7 +18,6 @@ const modal = {
   shouldDisplay: "",
 };
 
-// export const appError = writable({ stat, reason });
 export const auth = writable(authState);
 export const notify = writable(toast);
 export const modalStore = writable(modal);

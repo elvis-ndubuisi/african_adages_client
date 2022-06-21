@@ -70,9 +70,13 @@
 
     const refreshAdageList = () => {}
 
-    const previousPage = () => {}
+    const previousPage = () => {
+        console.log(curAdPage);
+    }
 
-    const nextPage = () => {}
+    const nextPage = () => {
+        console.log(curAdPage);
+    }
     
     onMount(async ()=>{
         // if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
