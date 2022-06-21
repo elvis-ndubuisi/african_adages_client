@@ -1,10 +1,25 @@
 <script>
+    import axios from '../../utilities/axios';
     import { createEventDispatcher } from 'svelte';
     import {fade, slide} from 'svelte/transition';
     import ButtonSubmit from '../buttons/ButtonSubmit.svelte';
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
 
     const dispatch = createEventDispatcher();
+
+    // Props
+    export let name = "";
+    export let email = "";
+    export let country = "";
+
+    const handleSubmit = async () => {
+        // Get data.
+        try {
+            const response = await axios.patch('/cnt/profile', {});
+        } catch (error) {
+            
+        }
+    }
 
 </script>
 
@@ -13,25 +28,25 @@
         <h2>Edit Profile</h2>
         <ButtonIcon on:click={()=>dispatch('close')}><i class="fa-solid fa-times"></i></ButtonIcon>
     </div>
-    <form method="post" transition:slide|local>
+    <form method="post" transition:slide|local on:submit={handleSubmit}>
         <div class="input-group">
             <label for="username">Username</label>
             <div class="field">
-                <input type="text" name="usename" id="username">
+                <input type="text" name="usename" id="username" bind:value={name}>
             </div>
         </div>
 
         <div class="input-group">
             <label for="email">Email</label>
             <div class="field">
-                <input type="email" name="email" id="email" autocomplete="off">
+                <input type="email" name="email" id="email" autocomplete="off" bind:value={email}>
             </div>
         </div>
 
         <div class="input-group">
-            <label for="email">Twitter</label>
+            <label for="email">Country</label>
             <div class="field">
-                <input type="text" name="social" id="social" autocomplete="off">
+                <input type="text" name="social" id="country" autocomplete="off" bind:value={country}>
             </div>
         </div>
 

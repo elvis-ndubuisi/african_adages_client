@@ -2,7 +2,7 @@
     import axios from '../utilities/axios';
     import {onMount} from 'svelte';
     import { auth, notify } from '../store/app';
-    import { link, push } from 'svelte-spa-router';
+    import { link, replace } from 'svelte-spa-router';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
 
     // Varaibles
@@ -42,25 +42,35 @@
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
                 // set session data.
-                sessionStorage.setItem('user', response.data.accessToken);
+                // sessionStorage.setItem('user', response.data.accessToken);
+                // sessionStorage.setItem('token', response.data.refreshToken);
+
+                auth.update((state) => {
+                    state.isAuth = true,
+                    state.setToken(response.data.refreshToken);
+                    return state;
+                })
+
                 sessionStorage.setItem('profile', JSON.stringify({
                     name: response.data.name,
                     country: response.data.country,
                     email: response.data.email,
                     gender: response.data.gender
                 }))
-                
-                auth.update((state) => {
-                    state.isAuth = true,
-                    state.user = response.data.accessToken;
+
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.reason = "login successful";
+                    state.status = "200";
                     
                     return state;
                 })
-                push('/dashboard')
+                
+                replace('/dashboard')
             }
         } catch (err) {
             notify.update((state)=>{
-                state.isIncident = true,
+                state.isIncident = true;
                 state.reason = 'no internet';
                 state.status = 'error';
                 return state;

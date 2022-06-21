@@ -1,11 +1,11 @@
 <script>
     import axios from '../utilities/axios';
     import {onMount} from 'svelte';
-    import {notify} from '../store/app';
     import {link} from 'svelte-spa-router';
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
+    import ButtonCtaDark from '../components/buttons/ButtonCTA_Dark.svelte';
 
-    $: adage = "The death of an elderly man is like a burning library";
+    $: adage = "";
 
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
@@ -16,6 +16,8 @@
                 if(response.status === 200) {
                     adage = response.data.adage;
                     sessionStorage.setItem('adage', response.data.adage);
+                }else {
+                    adage = 'The death of an elderly man is like a burning library';
                 }
                 // console.log(response);
             } catch (err) {
@@ -35,8 +37,9 @@
                 Feel free to join and contribute to the project.
             </p>
 
-            <section>
-                <ButtonCTA><a href="/register" use:link><span>add your adage</span> <i class="fa-solid fa-circle-plus fa-lg"></i></a></ButtonCTA>
+            <section class="home-button">
+                <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA>
+                <ButtonCtaDark><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><span>Say Hi! </span> <i class="fa-brands fa-twitter fa-lg"></i></a></ButtonCtaDark>
             </section>
         </section>
     </section>
@@ -44,16 +47,28 @@
 
 <section class="endpoints comp-wrapper" id="endpoints">
     <aside>
-        <section>
-            <h3>Endpoints</h3>
-            <div id="lks">
-                <ul>
-                    <li> <a href="#AOD">adage of the day</a></li>
-                    <li> <a href="#RNDA">random adage</a></li>
-                    <li> <a href="#QRY">random adage by filter</a></li>
-                </ul>
-            </div>
-        </section>
+        <div class="panel">
+            <section>
+                <h3>Adage Endpoints</h3>
+                <div id="lks">
+                    <ul>
+                        <li> <a href="#AOD">adage of the day</a></li>
+                        <li> <a href="#RNDA">random adage</a></li>
+                        <li> <a href="#QRY">random adage by filter</a></li>
+                    </ul>
+                </div>
+            </section>
+            <section>
+                <h3>Adage Endpoints</h3>
+                <div id="lks">
+                    <ul>
+                        <li> <a href="#AOD">adage of the day</a></li>
+                        <li> <a href="#RNDA">random adage</a></li>
+                        <li> <a href="#QRY">random adage by filter</a></li>
+                    </ul>
+                </div>
+            </section>
+        </div>
     </aside>
     <main>
         <section id="RNDA">
@@ -64,7 +79,9 @@
                 <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
             </section>
             <section class="response">
-                <pre></pre>
+                <pre>
+                    <code></code>
+                </pre>
             </section>
         </section>
 
@@ -96,12 +113,17 @@
 
 
 <style>
+    code {
+        overflow-x: hidden;
+        word-wrap: break-word;
+    }
     .landing {
         height: 370px;
         display: grid;
         place-items: center;
     }
     .cta {
+
         max-width: 800px;
         display: flex;
         flex-direction: column;
@@ -116,7 +138,25 @@
         text-align: justify;
         font-size: 0.9rem;
     }
-   
+    @media screen and (max-width: 768px){
+        .landing {
+            height: auto;
+            padding: 1rem 0;
+        }
+        .cta h2 {
+            font-size: 1.2rem;
+        }
+        .cta h1 {
+            font-size: 2rem;
+        }
+    }
+    .home-button {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        gap: 1rem;
+    }
 
     /* endpoints */
     .endpoints {
@@ -141,14 +181,18 @@
             display: none;
         }
     }
-    aside section {
+    aside .panel {
         position: sticky;
         top: 0;
         left: 0;
         width: inherit;
+        padding-top: 1em;
+    }
+    aside section {
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
+        gap: 1rem;
+        margin-bottom: 2em;
     }
     aside #lks {
         width: 100%;
@@ -202,7 +246,7 @@
     .request {
         width: 100%;
         display: grid;
-        grid-template-columns: min-content 1fr min-content;
+        grid-template-columns: min-content 1fr;
         align-items: center;
         gap: 1.2rem;
         padding: 0.5rem 1rem;

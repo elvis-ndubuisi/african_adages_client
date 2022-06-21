@@ -14,7 +14,7 @@
             {#if $location !== '/dashboard'}
                 <li><a href="/dashboard" use:link>Dashboard</a></li>
             {/if}
-            <li><a href="https://github.com/elvis-ndubuisi/african_proverb_api" tooltip="visit repo">GitHub<i class="fa-solid fa-link fa-sm"></i></a></li>
+            <li><a href="" tooltip="visit repo">GitHub<i class="fa-brands fa-github-alt fa-sm"></i></a></li>
         </ul>
     </div>
 </nav>
@@ -32,6 +32,7 @@
         align-items: center;
         justify-content: space-between;
         flex-wrap: wrap;
+        gap: 0.7rem;
     }
     ul, li {
         display: inline-flex;
@@ -39,6 +40,22 @@
         text-transform: capitalize;
         font-weight: var(--fw-200);
         gap: 1rem;
+    }
+    @media screen and (max-width: 768px){
+        nav {
+            height: auto;
+            min-height: var(--nav-height);
+            padding-top: 0.5rem;
+        }
+        .comp-wrapper {
+            justify-content: center;
+        }
+        ul {
+            width: 100%;
+            place-content: center;
+            background-color: var(--clr-foreground);
+            color: var(--clr-background);
+        }
     }
     a {
         Padding: 0.3rem 0.5rem;

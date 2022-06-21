@@ -19,8 +19,8 @@
         padding: 4px;
         font-size: 1.2rem;
         border-radius: 0.5rem;
-        color: var(--clr-foreground);
-        background-color: transparent;
+        color: inherit var(--clr-foreground);
+        background-color: inherit transparent;
         transition: all 0.3s ease;
     }
     button:hover, button:focus {

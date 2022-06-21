@@ -1,12 +1,13 @@
 <script>
     import {createEventDispatcher} from 'svelte';
+    import {fly} from 'svelte/transition'
     export let status = "";
     export let reason = "";
 
     const dispatch = createEventDispatcher();
 </script>
 
-<section class="toast warning">
+<section class="toast warning" in:fly="{{x: 200, duration: 230}}" out:fly="{{x: 200, duration: 230}}">
     <div class="flex-inline">
         <p class="status">{status}</p>
         <span class="close" on:click={()=>dispatch('closeToast')}>X</span>
