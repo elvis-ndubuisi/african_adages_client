@@ -1,14 +1,35 @@
 <script>
+    import axios from '../../utilities/axios';
     import { createEventDispatcher } from 'svelte';
     import {fade, slide} from 'svelte/transition';
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
-    import ButtonPrimary from '../buttons/ButtonPrimary.svelte';
     import ButtonSubmit from '../buttons/ButtonSubmit.svelte';
+import { notify } from '../../store/app';
     const dispatch = createEventDispatcher();
 
-    const handleSubmit = (e)=>{
+    export let adage = '';
+    export let id = '';
+    // export let country = "";
+    // export let tags = "";
+
+    const handleSubmit = async (e)=>{
         e.preventDefault();
-        console.log('submited');
+        try {
+            const response = await axios.patch('/cnt/profile/adage', { params: {id} })
+            console.log('edit adage response ' + response);
+
+            if(response.status === 200) {
+                notify.update((state) => {
+                    state.isIncident = true;
+                    state.status = response.status;
+                    state.reason = 'adage edited';
+
+                    return state;
+                })
+            }
+        } catch (err) {
+            console.log('edit adage error ' + err)
+        }
     }
 </script>
 
@@ -21,7 +42,7 @@
         <div class="input-group">
             <label for="adage">Adage</label>
             <div class="field">
-                <textarea name="adage" id="adage" cols="14" rows="10"></textarea>
+                <textarea name="adage" id="adage" cols="14" rows="10" bind:value={adage}></textarea>
             </div>
         </div>
         <ButtonSubmit>Update Adage</ButtonSubmit>

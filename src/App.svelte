@@ -27,7 +27,7 @@
 			noticeState.isIncident = false;
 			noticeState.status = "";
 			noticeState.reason = "";
-		}, 3000);
+		}, 3500);
 	}
 
 	onDestroy(noticeSubscriber)

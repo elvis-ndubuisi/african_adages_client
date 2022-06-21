@@ -1,4 +1,6 @@
 <script>
+    import axios from '../../utilities/axios';
+    import { notify, modalStore } from '../../store/app';
     import { createEventDispatcher } from 'svelte';
     import { fade, slide} from 'svelte/transition';
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
@@ -6,6 +8,29 @@
 
     const dispatch = createEventDispatcher();
 
+    let adage = "";
+    let uniqueTo = "";
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await axios.post('/cnt/profile/adage', {adage, uniqueTo});
+
+            if(response.status === 200){
+                dispatch('refreshAdageList');
+                modalStore.set({shouldDisplay: ""});
+                notify.update((state) => {
+                    state.isIncident = true;
+                    state.status = response.status;
+                    state.reason = 'adage added';
+
+                    return state;
+                })
+            }
+        } catch (err) {
+            console.log('add adage error ' + err);
+        }
+    }
 </script>
 
 <section class="modal-comp" transition:fade>
@@ -13,19 +38,18 @@
         <h2>Add Adage</h2>
         <ButtonIcon on:click={()=>dispatch('close')}><i class="fa-solid fa-times"></i></ButtonIcon>
     </div>
-    <form method="post" transition:slide|local>
+    <form method="post" transition:slide|local on:submit={handleSubmit}>
         <div class="input-group">
             <label for="adage">Adage</label>
             <div class="field">
-                <textarea name="adage" id="adage" cols="40" rows="6"></textarea>
+                <textarea bind:value={adage} cols="40" rows="6"></textarea>
             </div>
         </div>
 
         <div class="input-group">
             <label for="country">Unique to</label>
             <div class="field">
-                <i class="fa-solid fa-earth-africa"></i>
-                <input type="text" name="country" id="country" list="countries">
+                <input type="text" bind:value={uniqueTo} id="country" list="countries" placeholder="nigerian">
                 <datalist id="countries">
                     <option value="Nigerian"></option>
                     <option value="Kenyan"></option>

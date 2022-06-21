@@ -35,6 +35,18 @@ button {
   color: var(--clr-accent);
   border: solid 2px var(--clr-accent);
 }
+.button_cta__dark {
+  height: 54px;
+  font-weight: var(--fw-200);
+  background-color: var(--clr-background);
+  color: var(--clr-foreground);
+  border: solid 2px var(--clr-accent);
+}
+.button_cta__dark:hover {
+  color: var(--clr-background);
+  border-color: var(--clr-background);
+  background-color: var(--clr-foreground);
+}
 .button_cta:hover,
 .button_cta:focus {
   color: var(--clr-foreground);
@@ -74,4 +86,25 @@ button {
 .button_dark:focus {
   color: var(--clr-background);
   background-color: var(--clr-foreground);
+}
+@media only screen and (max-width: 768px) {
+  .button {
+    font-size: inherit;
+    min-width: 100px;
+    padding-inline: 0.3rem;
+  }
+  .button_nm {
+    height: 38px;
+  }
+  .button_cta,
+  .button_cta__dark {
+    height: 44px;
+  }
+  .button_smt {
+    height: 44px;
+  }
+  .button_simple,
+  .button_dark {
+    height: 38px;
+  }
 }

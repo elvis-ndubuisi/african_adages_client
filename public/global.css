@@ -11,9 +11,14 @@
   /* Sizing */
   --max-width: 1100px;
   --nav-height: 60px;
-
+  font-size: 1rem;
   /* buttons */
   --btn-hsl-opacity: 0.3;
+}
+@media screen and (max-width: 768px) {
+  :root {
+    font-size: 0.875rem;
+  }
 }
 
 /**********************
@@ -99,14 +104,15 @@ a {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  min-width: 320px;
+  min-width: 300px;
   max-width: 400px;
   padding: 1rem;
   border-radius: 0.5rem;
   border: solid 2px var(--clr-secondary);
   box-shadow: 2px 4px var(--clr-secondary);
 }
-.modal-comp button {
+.modal-comp div:first-child button,
+.modal-comp form button {
   color: var(--clr-background);
   background-color: var(--clr-foreground);
 }

@@ -1,7 +1,7 @@
 <script>
     import { auth, notify } from '../store/app';
     import { onMount } from 'svelte';
-    import {link, push} from 'svelte-spa-router';
+    import {link, replace} from 'svelte-spa-router';
     // import {link} from 'svelte-routing';
     import axios from '../utilities/axios';
     import {} from '../utilities/browser';
@@ -75,12 +75,22 @@
                 return;
             }
 
-            const response = await axios.post('account/register', {name, email, country, gender, password}, {withCredentials: true});
+            const response = await axios.post('account/register', {name, email, country, gender, password});
             
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+                // set session data
+                // sessionStorage.setItem('user', response.data.accessToken);
+                // sessionStorage.setItem('token', response.data.refreshToken);
 
-                sessionStorage.setItem('user', response.data.accessToken);
+                // update session data
+                auth.update((state) => {
+                    state.isAuth = true;
+                    state.setToken = response.data.refreshToken;
+                    return state;
+                })
+
+                // set profile data
                 sessionStorage.setItem('profile', JSON.stringify({
                     name: response.data.name,
                     country: response.data.country,
@@ -88,13 +98,15 @@
                     gender: response.data.gender
                 }))
 
-                auth.update((state) => {
-                    state.isAuth = true,
-                    state.user = response.data.accessToken;
-
+                // notify client
+                notify.update((state) => {
+                    state.isIncident = true;
+                    state.status = 'Success';
+                    state.reason = 'Registration successful';
                     return state;
                 })
-                push('/dashboard')
+
+                replace('/dashboard')
             }
         } catch (err) {
             notify.update((state)=>{

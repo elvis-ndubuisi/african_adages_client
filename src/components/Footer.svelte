@@ -1,12 +1,13 @@
 <footer>
     <section class="comp-wrapper">
-        <p>© Elvis Ndubuisi 2022 - 2022</p>
+        <p>Built with ---- by Elvis Ndubuisi</p>
         <section class="socials">
             <a href="http://" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
             <a href="http://" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-earth-americas"></i></a>
-            <a href="http://" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
-            <a href="http://" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
+            <a href="https://github.com/elvis-ndubuisi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
+            <a href="https://twitter.com/elvis__ndubuisi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
         </section>
+        <a href=""><img src="" alt="donate"></a>
     </section>
 </footer>
 

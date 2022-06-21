@@ -1,15 +1,18 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import { replace } from 'svelte-spa-router';
-    import { auth } from '../store/app';
-    import jwtDecode from 'jwt-decode';
+    import fetchAdages from '../utilities/fetchAdages';
+    import { auth, modalStore, curPage } from '../store/app';
+    // import jwtDecode from 'jwt-decode';
     import ButtonDark from '../components/buttons/ButtonDark.svelte';
     import ButtonSimple from '../components/buttons/ButtonSimple.svelte';
     import ButtonSend from '../components/buttons/ButtonSend.svelte';
+    import ButtonIcon from '../components/buttons/ButtonIcon.svelte';
     import Adages from '../components/Adages.svelte';
     import AddAdage from '../components/modals/AddAdage.svelte';
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
+    import ConfDelete from '../components/modals/DeleteAdage.svelte';
 
     // Variables
     let isAuthenticated;
@@ -20,24 +23,61 @@
     let country = "";
     let id = "";
 
+    $:eAdage = "";
+    $:eId = "";
+
     let searchValue = '';
-    $:whichModal = "";
+    $: activeModal = "";
+    $: curAdPage = "";
 
     const modal = {
         profileModal: "EPR",
-        addModal: "AAG",
-        editModal: "EAD",
+        addAdageModal: "AAG",
     }
     
     // Functions
     const authSubscribe = auth.subscribe(currentlyAuth => {
         isAuthenticated = currentlyAuth;
     })
+
+    const modalSubscribe = modalStore.subscribe(currentModal => {
+        activeModal = currentModal;
+    })
+
+    const curPageSubscribe = curPage.subscribe(cp => {curAdPage = cp})
+
+    const selectModal = (modalStr) => {
+        modalStore.update((state)=>{
+            if(state.shouldDisplay === ""){
+                state.shouldDisplay = modalStr.toUpperCase();
+            }
+            return state;
+        })
+    }
+
+    const closeM = () => {
+        modalStore.set({shouldDisplay: ""})
+    }
+
+    const setEditAdage = (event) => {
+        eAdage = event.detail.adage;
+        eId = event.detail.id;
+    }
+
+    const setDeleteAdage = async (event) => {
+        eId = event.detail.id;
+    }
+
+    const refreshAdageList = () => {}
+
+    const previousPage = () => {}
+
+    const nextPage = () => {}
     
     onMount(async ()=>{
         // if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
 
-        // if not profile is in session, redirect to login page.
+        // if no profile is in session, redirect to login page.
         profile = JSON.parse(sessionStorage.getItem('profile'));
         if(!profile){
             replace('/login');
@@ -48,13 +88,18 @@
         email = profile.email;
         gender = profile.gender;
         country = profile.country;
-        id = await jwtDecode(isAuthenticated.user);
+        // id = await jwtDecode(isAuthenticated.user);
+        // console.log(id)
     });
 
-    onDestroy(authSubscribe);
+    onDestroy(()=>{
+        authSubscribe();
+        modalSubscribe();
+        curPageSubscribe();
+    });
 </script>
 
-{#if isAuthenticated.isAuth === true && isAuthenticated.user !== ""}
+{#if isAuthenticated.isAuth === true && isAuthenticated.token !== ""}
     <section class="dashboard">
         <main class="comp-wrapper">
             <h2>Welcome back!</h2>
@@ -62,14 +107,12 @@
                 <section>
                     <div>
                         <h3>{name}</h3>
-                        <a href="https://google" class="socials">@elvisike</a>
                         <p>{email}</p>
                         <p>{country}</p>
                     </div>
                     <div>
-                        <ButtonSimple on:click={()=>whichModal=modal.profileModal}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
-                        <ButtonSimple><i class="fa-solid fa-trash-alt"></i> <span>delete</span></ButtonSimple>
-                        <ButtonDark on:click={()=>whichModal=modal.addModal}>add new adage</ButtonDark>
+                        <ButtonSimple on:click={()=>{selectModal(modal.profileModal)}}><i class="fa-solid fa-gear"></i> <span>Profile</span></ButtonSimple>
+                        <ButtonDark on:click={()=>{selectModal(modal.addAdageModal)}}>add new adage</ButtonDark>
                     </div>
                 </section>
                 <section>
@@ -77,20 +120,27 @@
                         <input type="text" placeholder="search adage" bind:value={searchValue}>
                         <span><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
+
+                    <div class='flex-inline' style="flex-wrap: wrap;">
+                        <ButtonIcon on:click={previousPage}><i class="fa-solid fa-chevron-left"></i></ButtonIcon>
+                        <span>{curAdPage}</span>
+                        <ButtonIcon on:click={nextPage}><i class="fa-solid fa-chevron-right"></i></ButtonIcon>
+                    </div>
                     <ButtonSend>Fetch</ButtonSend>
-                    <!-- <div></div> -->
                 </section>
             </header>
-            <Adages/>
+            <Adages on:selected_adage={setEditAdage} on:delete_selected={setDeleteAdage}/>
         </main>
     </section>
 
-    {#if whichModal !== "" && whichModal === 'EPR'}
-        <EditProfile on:close={()=>whichModal = ""}/>
-        {:else if whichModal !== "" && whichModal === 'AAG'}
-        <AddAdage on:close={()=>whichModal = ""}/>
-        {:else if whichModal !== "" && whichModal === 'EAD'}
-        <EditAdage on:close={()=>whichModal = ""}/>
+    {#if activeModal.shouldDisplay === 'EPR'}
+        <EditProfile name={name} email={email} country={country} on:close={closeM}/>
+    {:else if activeModal.shouldDisplay === 'AAG'}
+        <AddAdage on:close={closeM} on:refreshAdageList={refreshAdageList}/>
+    {:else if activeModal.shouldDisplay === 'EDA'}
+        <EditAdage adage={eAdage} id={eId} on:close={closeM}/>
+    {:else if activeModal.shouldDisplay === 'DEL'}
+        <ConfDelete on:close={closeM} id={eId}/>
     {/if}
 {/if}
 
@@ -109,13 +159,17 @@
         text-transform: capitalize;
         margin-bottom: 0.5rem;
     }
+    @media screen and (max-width: 768px){
+        .dashboard {
+            padding-block: 0.5rem;
+        }
+        h2 {
+            font-size: 1.6rem;
+        }
+    }
     p {
         font-weight: var(--fr-100);
         text-transform: lowercase;
-    }
-    .socials {
-        font-family: var(--ff-secondary);
-        font-weight: var(--fw-500);
     }
     .comp-wrapper {
         display: flex;
@@ -139,60 +193,10 @@
         align-items: center;
         justify-content: space-between;
         gap: 1rem;
+        flex-wrap: wrap;
     }
     .field {
         border-color: var(--clr-background);
         flex: 1;
     }
-    /* .img-holder {
-        min-height: 100px;
-        min-width: 100px;
-        max-height: 150px;
-        max-width: 150px;
-        aspect-ratio: 1;
-        border-radius: 50%;
-        object-fit: cover;
-        overflow: hiddem;
-    }
-    .profile-card div {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: space-evenly;
-        gap: 1rem;
-    }
-    .main {
-        flex: 1;
-    }
-    .action-bar {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 1rem;
-    }
-    .main ul {
-        max-height: 80vh;
-        overflow-y: scroll;
-        width: 100%;
-        display: inline-flex;
-        flex-direction: column;
-        gap: 0.5rem;
-        margin: 0.5rem 0;
-        padding: 0.5rem;
-        background-color: hsl(var(--clr-primary), 0.4);
-        scrollbar-color: hsl(var(--clr-primary), 0.4) hsl(var(--clr-secondary));
-        scrollbar-width: 10px;
-        scrollbar-track-color: hsl(var(--clr-primary), 0.4);
-    }
-    .main ul::-webkit-scrollbar {
-        width: 10px;
-    }
-    .main ul::-webkit-scrollbar-track{
-        background-color: hsl(var(--clr-primary), 0.4);
-        border-radius: 5px;
-    }
-    .main ul::-webkit-scrollbar-thumb {
-        background-color: hsl(var(--clr-primary));
-        border-radius: 5px;
-    } */
 </style>
