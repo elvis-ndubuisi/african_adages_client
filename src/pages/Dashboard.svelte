@@ -21,6 +21,9 @@
     let gender;
     let country;
 
+    $:eAdage = "";
+    $:eId = "";
+
     let searchValue = '';
 
     const modal = {

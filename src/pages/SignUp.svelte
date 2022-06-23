@@ -75,6 +75,9 @@
             
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
+                // set session data
+                // sessionStorage.setItem('user', response.data.accessToken);
+                // sessionStorage.setItem('token', response.data.refreshToken);
 
                 // decode access token.
                 const decodeAccess = await jwtDecode(response.data.accessToken);

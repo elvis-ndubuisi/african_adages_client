@@ -65,7 +65,6 @@
     }
     .adage {
         font-weight: var(--fw-200);
-        font-size: 1.1rem;
         flex-basis: 100%;
         text-transform: lowercase;
     }

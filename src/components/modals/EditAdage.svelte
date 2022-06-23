@@ -4,7 +4,7 @@
     import {fade, slide} from 'svelte/transition';
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
     import ButtonSubmit from '../buttons/ButtonSubmit.svelte';
-import { notify, adageModStore, adageStore, modalStore } from '../../store/app';
+    import { notify, adageModStore, adageStore, modalStore } from '../../store/app';
     const dispatch = createEventDispatcher();
 
     let adage = $adageModStore.adage;

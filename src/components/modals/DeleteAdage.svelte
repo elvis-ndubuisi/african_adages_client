@@ -5,7 +5,6 @@
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
     import ButtonCancel from '../buttons/ButtonSend.svelte';
     import ButtonAccept from '../buttons/ButtonCTA_Dark.svelte';
-
     
     const dispatch = createEventDispatcher();
 
