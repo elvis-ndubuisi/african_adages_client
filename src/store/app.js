@@ -2,8 +2,6 @@ import { writable } from "svelte/store";
 import axios from "../utilities/axios";
 import fetchData from "../utilities/fetchAdages";
 
-/* initial states */
-
 // notify
 const toast = {
   isIncident: false,
@@ -35,8 +33,8 @@ const modal = {
   canClickNext: true,
 };
 
-export const notify = writable(toast);
-export const modalStore = writable(modal);
+export const notify = writable({ isIncident: false, status: "", reason: "" });
+export const modalStore = writable({ shouldDisplay: "", canClickNext: true });
 
 function adageModState() {
   const { subscribe, update, set } = writable({
@@ -48,7 +46,6 @@ function adageModState() {
   return {
     subscribe,
     setAction: function (payload) {
-      console.log(payload);
       update((state) => {
         state.id = payload.id;
         state.adage = payload.adage;
@@ -213,7 +210,6 @@ function adageStoreState() {
       // update data if deleted.
       if (response.status === 200) {
         const data = await fetchData(page);
-        console.log(page);
         if (data) {
           update((state) => {
             state.page = data.page;
@@ -283,6 +279,26 @@ function adageStoreState() {
   };
 }
 
+function profileStoreState() {}
+
+function userStoreState() {
+  const { subscribe, update, set } = writable({
+    userId: "",
+    userName: "",
+    userCountry: "",
+    userEmail: "",
+    userToken: "",
+  });
+
+  return {
+    subscribe,
+    authenticate: async function () {},
+    register: async function () {},
+  };
+}
+
 export const adageStore = adageStoreState();
 export const adageModStore = adageModState();
+export const profileStore = profileStoreState();
+export const userStore = userStoreState();
 // export const notifyStore = notifyStoreState();

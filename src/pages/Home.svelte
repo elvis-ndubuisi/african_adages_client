@@ -30,7 +30,7 @@
 <section class="landing">
     <section class="comp-wrapper">
         <section class="cta">
-            <h2>African Adage</h2>
+            <h2>African Heritage</h2>
             <h1>{adage}</h1>
             <p>
                 The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries.
@@ -49,22 +49,12 @@
     <aside>
         <div class="panel">
             <section>
-                <h3>Adage Endpoints</h3>
+                <h4>Adage Endpoints</h4>
                 <div id="lks">
                     <ul>
-                        <li> <a href="#AOD">adage of the day</a></li>
                         <li> <a href="#RNDA">random adage</a></li>
-                        <li> <a href="#QRY">random adage by filter</a></li>
-                    </ul>
-                </div>
-            </section>
-            <section>
-                <h3>Adage Endpoints</h3>
-                <div id="lks">
-                    <ul>
-                        <li> <a href="#AOD">adage of the day</a></li>
-                        <li> <a href="#RNDA">random adage</a></li>
-                        <li> <a href="#QRY">random adage by filter</a></li>
+                        <li> <a href="#QRY">random adage</a></li>
+                        <li> <a href="#AOD">random adage by filter</a></li>
                     </ul>
                 </div>
             </section>
@@ -72,9 +62,11 @@
     </aside>
     <main>
         <section id="RNDA">
-            <h4>Adage of the Day</h4>
+            <h3>Random Adage</h3>
+            <p>Returns a random adage on every request</p>
+            <small class="note"><b>NB:</b> requests are cached every ooo mins</small>
             <section class="request">
-                <h4 class="method">GET</h4>
+                <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                 <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
             </section>
@@ -85,10 +77,12 @@
             </section>
         </section>
 
-        <section id="AOD">
-            <h4>Random Adage</h4>
+        <section id="QRY">
+            <h3>Filtered Random Adage</h3>
+            <p>Returns a random adage that matches specified filter parameter</p>
+            <small class="note"><b>NB:</b> An empty object is returned if no adage matches specified query</small>
             <section class="request">
-                <h4 class="method">GET</h4>
+                <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                 <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
             </section>
@@ -97,10 +91,12 @@
             </section>
         </section>
 
-        <section id="QRY">
-            <h4>Random Adage by Filter</h4>
+        <section id="AOD">
+            <h3>Adage of the day</h3>
+            <p>adage of the day</p>
+            <small class="note"><b>NB:</b> noted</small>
             <section class="request">
-                <h4 class="method">GET</h4>
+                <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                 <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
             </section>
@@ -114,8 +110,8 @@
 
 <style>
     code {
-        overflow-x: hidden;
-        word-wrap: break-word;
+        /* overflow-x: hidden; */
+        /* word-wrap: break-word; */
     }
     .landing {
         height: 370px;
@@ -162,6 +158,7 @@
     .endpoints {
         display: flex;
         gap: 1rem;
+        flex-direction: row-reverse;
         position: relative;
         min-height: 400px;
     }
@@ -238,7 +235,7 @@
         padding: 1rem 0;
         flex: 1;
     }
-    main h4 {
+    main h3 {
         color: var(--clr-accent);
     }
 
@@ -266,5 +263,9 @@
         padding: 0.5rem 1rem;
         min-height: 200px;
         border-radius: 0.5rem;
+    }
+    .note {
+        font-style: italic;
+        font-size: 0.8rem;
     }
 </style>

@@ -9,7 +9,6 @@
             <a href="https://www.buymeacoffee.com/simplyelvis" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 50px !important;width: 207px !important;" ></a>
             <section class="socials">
                 <a href="https://www.linkedin.com/in/simplyelvis/" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-linkedin-in"></i></a>
-                <!-- <a href="http://" target="_blank" rel="noopener noreferrer"><i class="fa-solid fa-earth-americas"></i></a> -->
                 <a href="https://github.com/elvis-ndubuisi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-github"></i></a>
                 <a href="https://twitter.com/elvis__ndubuisi" target="_blank" rel="noopener noreferrer"><i class="fa-brands fa-twitter"></i></a>
             </section>

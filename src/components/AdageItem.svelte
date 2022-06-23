@@ -1,9 +1,6 @@
 <script>
-    import { createEventDispatcher} from 'svelte';
     import { modalStore, adageModStore } from '../store/app';
     import ButtonIcon from "./buttons/ButtonIcon.svelte";
-
-    const dispatch = createEventDispatcher();
 
     export let adage_payload = {};
 
@@ -40,13 +37,13 @@
 
 <style>
     .adage-item {
+        flex: 1 0 300px;
         list-style: none;
         text-align: left;
         min-height: 80px;
         background-color: var(--clr-foreground);
         color: var(--clr-background);
         border-radius: 0.5rem;
-        margin-bottom: 0.5rem;
         display: flex;
         flex-wrap: wrap;
         overflow: hidden;
@@ -67,9 +64,10 @@
         padding-inline: 0.5rem;
     }
     .adage {
-        font-weight: var(--fw-500);
-        font-size: 1.3rem;
+        font-weight: var(--fw-200);
+        font-size: 1.1rem;
         flex-basis: 100%;
+        text-transform: lowercase;
     }
     .action {
         display: flex;

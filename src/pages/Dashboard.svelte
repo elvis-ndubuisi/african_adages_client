@@ -1,5 +1,5 @@
 <script>
-    import { onDestroy, onMount, getContext } from 'svelte';
+    import { onDestroy, onMount } from 'svelte';
     import { replace } from 'svelte-spa-router';
     import { notify, modalStore, adageStore, authStore, adageModStore } from '../store/app';
     import ButtonDark from '../components/buttons/ButtonDark.svelte';
@@ -45,7 +45,6 @@
     }
 
     const closeM = () => {
-        console.log('closed')
         modalStore.set({shouldDisplay: "", canClickNext: true})
         adageModStore.resetAction();
     }
@@ -108,8 +107,8 @@
                     </div>
                 </section>
                 <section>
-                    <div class="field">
-                        <input type="text" placeholder="search adage" bind:value={searchValue}>
+                    <div class="field search">
+                        <input type="text" placeholder="search adage" bind:value={searchValue} on:input={()=>console.log('searching...')}>
                         <span><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
 
@@ -195,6 +194,9 @@
     .field {
         border-color: var(--clr-background);
         flex: 1;
+    }
+    .search {
+        min-width: 300px;
     }
     .no-adages {
         width: 100%;
