@@ -1,9 +1,7 @@
 <script>
     import { onDestroy, onMount } from 'svelte';
     import { replace } from 'svelte-spa-router';
-    import fetchAdages from '../utilities/fetchAdages';
-    import { auth, modalStore, curPage } from '../store/app';
-    // import jwtDecode from 'jwt-decode';
+    import { notify, modalStore, adageStore, authStore, adageModStore } from '../store/app';
     import ButtonDark from '../components/buttons/ButtonDark.svelte';
     import ButtonSimple from '../components/buttons/ButtonSimple.svelte';
     import ButtonSend from '../components/buttons/ButtonSend.svelte';
@@ -13,100 +11,96 @@
     import EditProfile from '../components/modals/EditProfile.svelte';
     import EditAdage from '../components/modals/EditAdage.svelte';
     import ConfDelete from '../components/modals/DeleteAdage.svelte';
+    import jwtDecode from 'jwt-decode';
 
-    // Variables
-    let isAuthenticated;
-    let profile;
-    let name = "";
-    let email = "";
-    let gender = "";
-    let country = "";
-    let id = "";
+    /* Variables */
+    // user
+    let authState;
+    let username;
+    let email;
+    let gender;
+    let country;
 
     $:eAdage = "";
     $:eId = "";
 
     let searchValue = '';
-    $: activeModal = "";
-    $: curAdPage = "";
 
     const modal = {
         profileModal: "EPR",
         addAdageModal: "AAG",
     }
-    
+
     // Functions
-    const authSubscribe = auth.subscribe(currentlyAuth => {
-        isAuthenticated = currentlyAuth;
-    })
+    const unSub_AuthStore = authStore.subscribe((store) => {
+        authState = store;
+    }) 
 
-    const modalSubscribe = modalStore.subscribe(currentModal => {
-        activeModal = currentModal;
-    })
-
-    const curPageSubscribe = curPage.subscribe(cp => {curAdPage = cp})
 
     const selectModal = (modalStr) => {
         modalStore.update((state)=>{
             if(state.shouldDisplay === ""){
                 state.shouldDisplay = modalStr.toUpperCase();
+                state.canClickNext = false;
             }
             return state;
         })
     }
 
     const closeM = () => {
-        modalStore.set({shouldDisplay: ""})
+        modalStore.set({shouldDisplay: "", canClickNext: true})
+        adageModStore.resetAction();
     }
-
-    const setEditAdage = (event) => {
-        eAdage = event.detail.adage;
-        eId = event.detail.id;
-    }
-
-    const setDeleteAdage = async (event) => {
-        eId = event.detail.id;
-    }
-
-    const refreshAdageList = () => {}
-
-    const previousPage = () => {}
-
-    const nextPage = () => {}
-    
+    adageModStore
     onMount(async ()=>{
-        // if(isAuthenticated.isAuth !== true && isAuthenticated.user === "") replace('/');
-
-        // if no profile is in session, redirect to login page.
-        profile = JSON.parse(sessionStorage.getItem('profile'));
-        if(!profile){
-            replace('/login');
+        // check client authentication session.
+        const token = authState.token;
+        if(token === null){
+            notify.update((state) => {
+                state.isIncident = true;
+                state.reason = 'Please authenticate';
+                state.status = 'Not authenticated';
+                return state;
+            })
+            replace('/login')
             return;
-        };
-        // else aquire profile.
-        name = profile.name;
-        email = profile.email;
-        gender = profile.gender;
-        country = profile.country;
-        // id = await jwtDecode(isAuthenticated.user);
-        // console.log(id)
+        }
+        const decoded = jwtDecode(token);
+        if(!decoded.aud) {
+            replace('/login');
+            notify.update((state)=>{
+                state.isIncident = true;
+                state.reason = "Please re-authenticate";
+                state.status = "Access blocked";
+                return state;
+            })
+            return;
+        }
+
+        // assign auth variables.
+        username = authState.username;
+        email = authState.email;
+        gender = authState.gender;
+        country = authState.country;
+
+        // fetch user's adages.
+        await adageStore.fetchAdages($adageStore.page);
+
     });
 
     onDestroy(()=>{
-        authSubscribe();
-        modalSubscribe();
-        curPageSubscribe();
+        unSub_AuthStore();
     });
 </script>
 
-{#if isAuthenticated.isAuth === true && isAuthenticated.token !== ""}
+{#if (authState.userId && authState.token) !== null}
     <section class="dashboard">
         <main class="comp-wrapper">
             <h2>Welcome back!</h2>
             <header class="header">
                 <section>
                     <div>
-                        <h3>{name}</h3>
+                        <h3>{username}</h3>
                         <p>{email}</p>
                         <p>{country}</p>
                     </div>
@@ -116,31 +110,36 @@
                     </div>
                 </section>
                 <section>
-                    <div class="field">
-                        <input type="text" placeholder="search adage" bind:value={searchValue}>
+                    <div class="field search">
+                        <input type="text" placeholder="search adage" bind:value={searchValue} on:input={()=>console.log('searching...')}>
                         <span><i class="fa-solid fa-magnifying-glass"></i></span>
                     </div>
 
                     <div class='flex-inline' style="flex-wrap: wrap;">
-                        <ButtonIcon on:click={previousPage}><i class="fa-solid fa-chevron-left"></i></ButtonIcon>
-                        <span>{curAdPage}</span>
-                        <ButtonIcon on:click={nextPage}><i class="fa-solid fa-chevron-right"></i></ButtonIcon>
+                        <ButtonIcon on:click={adageStore.prevpage($adageStore.page)}><i class="fa-solid fa-chevron-left"></i></ButtonIcon>
+                        <span>{$adageStore.page}</span>
+                        <ButtonIcon on:click={adageStore.nextPage($adageStore.page)}><i class="fa-solid fa-chevron-right"></i></ButtonIcon>
                     </div>
                     <ButtonSend>Fetch</ButtonSend>
                 </section>
             </header>
-            <Adages on:selected_adage={setEditAdage} on:delete_selected={setDeleteAdage}/>
+            <!-- Render adage list if adage array isn't empty -->
+            {#if $adageStore.page === 0}
+                <section class="no-adages">Add an Adage</section>
+            {:else}
+                <Adages/>
+            {/if}
         </main>
     </section>
 
-    {#if activeModal.shouldDisplay === 'EPR'}
-        <EditProfile name={name} email={email} country={country} on:close={closeM}/>
-    {:else if activeModal.shouldDisplay === 'AAG'}
-        <AddAdage on:close={closeM} on:refreshAdageList={refreshAdageList}/>
-    {:else if activeModal.shouldDisplay === 'EDA'}
-        <EditAdage adage={eAdage} id={eId} on:close={closeM}/>
-    {:else if activeModal.shouldDisplay === 'DEL'}
-        <ConfDelete on:close={closeM} id={eId}/>
+    {#if $modalStore.shouldDisplay === 'EPR'}
+        <EditProfile name={username} email={email} country={country} on:close={closeM}/>
+    {:else if $modalStore.shouldDisplay === 'AAG'}
+        <AddAdage on:close={closeM}/>
+    {:else if $modalStore.shouldDisplay === 'EDA'}
+        <EditAdage on:close={closeM}/>
+    {:else if $modalStore.shouldDisplay === 'DEL'}
+        <ConfDelete on:close={closeM}/>
     {/if}
 {/if}
 
@@ -198,5 +197,17 @@
     .field {
         border-color: var(--clr-background);
         flex: 1;
+    }
+    .search {
+        min-width: 300px;
+    }
+    .no-adages {
+        width: 100%;
+        font-size: 2rem;
+        font-family: var(--ff-secondarhy);
+        font-weight: var(--fw-900);
+        text-align: center;
+        text-transform: lowercase;
+        opacity: 0.7;
     }
 </style>

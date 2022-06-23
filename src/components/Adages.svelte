@@ -1,90 +1,28 @@
 <script>
-    // import axios from '../utilities/axios';
-    import fetchAdages from '../utilities/fetchAdages'
-    import {onMount, createEventDispatcher, onDestroy} from 'svelte';
-    import { modalStore, curPage } from '../store/app';
+    import { createEventDispatcher} from 'svelte';
+    import { adageStore } from '../store/app';
     import AdageItem from './AdageItem.svelte';
-
-    // Variables
-    $: adages = "";
-    const dispatch = createEventDispatcher();
-
-    // Functions
-    // const fetchData = async (page) => {
-    //     try {
-    //         const response = await axios.get('cnt/profile/adages', {page: ''});            
-    //         if(response.status = 200) {
-    //             let data  = await response.data;
-    //             return data;
-    //         };
-    //     } catch (err) {
-    //         console.log('error at adages ' + err)
-    //     }
-    // }
-
-    const selectModal = (modalStr) => {
-        modalStore.update((state)=>{
-            if(state.shouldDisplay === ""){
-                state.shouldDisplay = modalStr.toUpperCase();
-            }
-            return state;
-        })
-    }
-
-    const handleEdit = (event, id) => {
-        selectModal("EDA");
-        dispatch('selected_adage', {...event.detail, id})
-    }
-
-    const handleDelete = (event, id) => {
-        selectModal('DEL')
-        dispatch('delete_selected', {...event.detail, id})
-    }
-
-
-    onMount(async ()=>{
-        // adages = await fetchData();
-        adages = await fetchAdages();
-        let cp = adages.page;
-        if(cp) {
-            curPage.update(n => n = cp);
-        }else {
-            curPage.update(n => n = 0)
-        }
-    })
-
-    onDestroy(() => {
-    })
 </script>
 
-{#if adages.count !== 0}
-    <ul class="adages">
-        {#await adages}
-        <li>
-            <p class="loading">...loading adage(s)</p>
-        </li>
-        {:then val}
-            {#if val}
-                {#each val.data as item (item.id)}
-                    <AdageItem adage_payload={item} on:edit-adage={(event)=>handleEdit(event, item.id)} on:delete-adage={(event)=>handleDelete(event, item.id)}/>
-                {/each}
-            {/if}
-        {:catch error}
-            <p style="color: red">Something went wrong...</p>
-        {/await}
-    </ul>
-{:else}
-    <section class="no-adages">
-        <p>no adages. add you adage</p>
-    </section>
-{/if}
+<ul class="adages">
+    {#await $adageStore.adages then adages}
+        {#each adages as adage}
+            <AdageItem adage_payload={adage}/>
+        {/each}
+    {/await}
+    
+</ul>
 
 
 <style>
     .adages {
         width: 100%;
         display: inline-flex;
-        flex-direction: column;
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-content: center;
+        justify-content: left;
     }
     .no-adages {
         width: 100%;
