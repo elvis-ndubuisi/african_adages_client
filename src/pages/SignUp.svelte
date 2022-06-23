@@ -1,12 +1,9 @@
 <script>
-    import { auth, notify } from '../store/app';
+    import { notify } from '../store/app';
     import { onMount } from 'svelte';
     import {link, replace} from 'svelte-spa-router';
-    // import {link} from 'svelte-routing';
     import axios from '../utilities/axios';
-    import {} from '../utilities/browser';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
-    import ButtonPrimary from '../components/buttons/ButtonPrimary.svelte';
 
     // Variables
     let name = "";
@@ -58,7 +55,6 @@
                     state.isIncident = true;
                     state.status = "warning";
                     state.reason = 'Please provide required fields'
-
                     return state;
                 })
                 return;
@@ -79,33 +75,28 @@
             
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-                // set session data
-                // sessionStorage.setItem('user', response.data.accessToken);
-                // sessionStorage.setItem('token', response.data.refreshToken);
 
-                // update session data
-                auth.update((state) => {
-                    state.isAuth = true;
-                    state.setToken = response.data.refreshToken;
+                // decode access token.
+                const decodeAccess = await jwtDecode(response.data.accessToken);
+
+                // update store.
+                authStore.update((state) => {
+                    state.setToken(response.data.refreshToken);
+                    state.setUserId(decodeAccess.aud);
+                    state.setUsername(decodeAccess.name);
+                    state.setEmail(decodeAccess.sub);
+                    state.setCountry(response.data.country);
+                    state.setGender(response.data.gender);
                     return state;
                 })
 
-                // set profile data
-                sessionStorage.setItem('profile', JSON.stringify({
-                    name: response.data.name,
-                    country: response.data.country,
-                    email: response.data.email,
-                    gender: response.data.gender
-                }))
-
-                // notify client
-                notify.update((state) => {
+                notify.update((state)=>{
                     state.isIncident = true;
-                    state.status = 'Success';
-                    state.reason = 'Registration successful';
+                    state.reason = "Registration successful";
+                    state.status = "200";
                     return state;
                 })
-
+                
                 replace('/dashboard')
             }
         } catch (err) {

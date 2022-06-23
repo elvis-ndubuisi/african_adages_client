@@ -33,7 +33,7 @@
             <h2>African Adage</h2>
             <h1>{adage}</h1>
             <p>
-                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries. The African Adage Community appretiates your contritubions to its community.
+                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries.
                 Feel free to join and contribute to the project.
             </p>
 

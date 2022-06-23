@@ -1,6 +1,5 @@
 <script>
-    import axios from '../../utilities/axios';
-    import { notify, modalStore } from '../../store/app';
+    import { notify, modalStore, adageStore } from '../../store/app';
     import { createEventDispatcher } from 'svelte';
     import { fade, slide} from 'svelte/transition';
     import ButtonIcon from '../buttons/ButtonIcon.svelte';
@@ -13,23 +12,10 @@
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        try {
-            const response = await axios.post('/cnt/profile/adage', {adage, uniqueTo});
-
-            if(response.status === 200){
-                dispatch('refreshAdageList');
-                modalStore.set({shouldDisplay: ""});
-                notify.update((state) => {
-                    state.isIncident = true;
-                    state.status = response.status;
-                    state.reason = 'adage added';
-
-                    return state;
-                })
-            }
-        } catch (err) {
-            console.log('add adage error ' + err);
-        }
+        const result = await adageStore.addAdage(adage , uniqueTo, $adageStore.page)
+        if(result.added === true && result.error === false){
+            modalStore.set({shouldDisplay: "", canClickNext: true})
+        } 
     }
 </script>
 

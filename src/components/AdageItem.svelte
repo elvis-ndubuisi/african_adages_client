@@ -1,18 +1,27 @@
 <script>
     import { createEventDispatcher} from 'svelte';
+    import { modalStore, adageModStore } from '../store/app';
     import ButtonIcon from "./buttons/ButtonIcon.svelte";
 
     const dispatch = createEventDispatcher();
 
-    const editAdage = () => {
-        dispatch('edit-adage', {adage: adage_payload.adage, country: adage_payload.country, tags: adage_payload.tags})
-    }
-
-    const deleteAdage = () => {
-        dispatch('delete-adage')
-    }
-
     export let adage_payload = {};
+
+    function editAdage(){
+        if($modalStore.canClickNext === true){
+            adageModStore.setAction(adage_payload);
+            $modalStore.shouldDisplay = 'EDA';
+            $modalStore.canClickNext = false;
+        }
+    }
+
+    function deleteAdage(){
+        if($modalStore.canClickNext === true){
+            adageModStore.setAction(adage_payload);
+            $modalStore.shouldDisplay = 'DEL';
+            $modalStore.canClickNext = false;
+        }
+    }
 </script>
 
 <li class="adage-item">
@@ -28,8 +37,6 @@
         </section>
     </section>
 </li>
-
-
 
 <style>
     .adage-item {

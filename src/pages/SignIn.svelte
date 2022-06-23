@@ -1,7 +1,8 @@
 <script>
     import axios from '../utilities/axios';
-    import {onMount} from 'svelte';
-    import { auth, notify } from '../store/app';
+    import { onMount } from 'svelte';
+    import jwtDecode from 'jwt-decode';
+    import { authStore, notify } from '../store/app';
     import { link, replace } from 'svelte-spa-router';
     import ButtonSubmit from '../components/buttons/ButtonSubmit.svelte';
 
@@ -37,26 +38,24 @@
         }
 
         try {
-            const response = await axios.post('account/login', {email, password}, {withCredentials: true})
+            const response = await axios.post('account/login', {email, password});
 
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
-                // set session data.
-                // sessionStorage.setItem('user', response.data.accessToken);
-                // sessionStorage.setItem('token', response.data.refreshToken);
 
-                auth.update((state) => {
-                    state.isAuth = true,
+                // decode access token.
+                const decodeAccess = await jwtDecode(response.data.accessToken);
+
+                // update store.
+                authStore.update((state) => {
                     state.setToken(response.data.refreshToken);
+                    state.setUserId(decodeAccess.aud);
+                    state.setUsername(decodeAccess.name);
+                    state.setEmail(decodeAccess.sub);
+                    state.setCountry(response.data.country);
+                    state.setGender(response.data.gender);
                     return state;
                 })
-
-                sessionStorage.setItem('profile', JSON.stringify({
-                    name: response.data.name,
-                    country: response.data.country,
-                    email: response.data.email,
-                    gender: response.data.gender
-                }))
 
                 notify.update((state)=>{
                     state.isIncident = true;

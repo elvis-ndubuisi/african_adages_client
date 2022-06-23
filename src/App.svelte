@@ -1,5 +1,5 @@
 <script>
-	import {notify} from './store/app';
+	import {notify, authStore} from './store/app';
 	import Router from 'svelte-spa-router';
 	import routes from './utilities/routes';
 	import Navbar from "./components/Navbar.svelte";
