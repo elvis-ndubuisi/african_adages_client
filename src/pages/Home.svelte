@@ -7,6 +7,10 @@
 
     $: adage = "";
 
+    function copyToClip(event) {
+        console.log(event.target.previousSiblingElement)
+    }
+
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
         const cachedAdage = sessionStorage.getItem('adage');
@@ -19,7 +23,6 @@
                 }else {
                     adage = 'The death of an elderly man is like a burning library';
                 }
-                // console.log(response);
             } catch (err) {
                 console.log('there was an error')
             }
@@ -68,7 +71,7 @@
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+                <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
             </section>
             <section class="response">
                 <pre>
@@ -84,7 +87,7 @@
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+                <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
             </section>
             <section class="response">
                 <pre></pre>
@@ -98,7 +101,7 @@
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                <!-- <ButtonSend><span>send</span> <i class="fa-solid fa-circle-arrow-right"></i></ButtonSend> -->
+                <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
             </section>
             <section class="response">
                 <pre></pre>
@@ -226,10 +229,6 @@
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem 0;
-        flex: 1;
-    }
-    main > section {
-        display: flex;
         flex-direction: column;
         gap: 0.5rem;
         padding: 1rem 0;
@@ -242,9 +241,9 @@
     /* code */
     .request {
         width: 100%;
-        display: grid;
-        grid-template-columns: min-content 1fr;
+        display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 1.2rem;
         padding: 0.5rem 1rem;
         border-bottom: solid 2px var(--clr-foreground);
@@ -255,6 +254,15 @@
         color: var(--clr-secondary);
     }
     .request .url {
+        flex-basis: 100%;
+        color: var(--clr-accent);
+    }
+    .request .clip {
+        color: var(--clr-foreground);
+        cursor: pointer;
+        font-size: 1.2rem;
+    }
+    .clip:hover, .clip:focus {
         color: var(--clr-accent);
     }
     .response {
