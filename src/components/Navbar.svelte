@@ -1,6 +1,5 @@
 <script>
     import {location, link} from 'svelte-spa-router';
-    // import { link } from 'svelte-routing';
     import AdageLogo from './AdageLogo.svelte';
 </script>   
 
@@ -14,7 +13,8 @@
             {#if $location !== '/dashboard'}
                 <li><a href="/dashboard" use:link>Dashboard</a></li>
             {/if}
-            <li><a href="" tooltip="visit repo">GitHub<i class="fa-brands fa-github-alt fa-sm"></i></a></li>
+            <li><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><i class="fa-brands fa-twitter"></i> <span>Say Hi!</span></a></li>
+            <li><a href="https://www.buymeacoffee.com/simplyelvis" target="_blank"><i class="fa-solid fa-coffee"></i> <span>Buy me coffee</span></a></li>
         </ul>
     </div>
 </nav>
