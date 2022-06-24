@@ -33,13 +33,13 @@
             <h2>African Heritage</h2>
             <h1>{adage}</h1>
             <p>
-                The African Adage API a free to use JSON API that delivers african proverbs/adages unique to different african countries.
+                The African Heritage API a free to use JSON API that delivers african proverbs/adages, riddles, stories, myths unique to different african countries.
                 Feel free to join and contribute to the project.
             </p>
 
             <section class="home-button">
                 <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA>
-                <ButtonCtaDark><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><span>Say Hi! </span> <i class="fa-brands fa-twitter fa-lg"></i></a></ButtonCtaDark>
+                <ButtonCtaDark><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><i class="fa-brands fa-twitter fa-lg"></i> <span>Share </span></a></ButtonCtaDark>
             </section>
         </section>
     </section>

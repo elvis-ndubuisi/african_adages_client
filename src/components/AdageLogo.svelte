@@ -1,5 +1,4 @@
 <script>
-    // import {link} from 'svelte-routing';
     import { link } from 'svelte-spa-router';
     import AdageIcon from './AdageIcon.svelte';
 </script>
@@ -8,7 +7,7 @@
     <span class="svg">
         <AdageIcon/>
     </span>
-    <span class="text"><span>African</span> Adages</span>
+    <span class="text"><span>African</span> Heritage</span>
 </a>
 
 <style>

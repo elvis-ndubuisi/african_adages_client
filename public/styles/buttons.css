@@ -32,15 +32,15 @@ button {
   height: 54px;
   font-weight: var(--fw-200);
   background-color: var(--clr-foreground);
-  color: var(--clr-accent);
-  border: solid 2px var(--clr-accent);
+  color: var(--clr-background);
+  border: solid 2px var(--clr-foreground);
 }
 .button_cta__dark {
   height: 54px;
   font-weight: var(--fw-200);
   background-color: var(--clr-background);
   color: var(--clr-foreground);
-  border: solid 2px var(--clr-accent);
+  border: solid 2px var(--clr-foreground);
 }
 .button_cta__dark:hover {
   color: var(--clr-background);
