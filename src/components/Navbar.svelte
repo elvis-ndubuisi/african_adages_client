@@ -36,6 +36,7 @@
     }
     ul, li {
         display: inline-flex;
+        flex-wrap: wrap;
         align-items: stretch;
         text-transform: capitalize;
         font-weight: var(--fw-200);
