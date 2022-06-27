@@ -12,6 +12,7 @@
     import EditAdage from '../components/modals/EditAdage.svelte';
     import ConfDelete from '../components/modals/DeleteAdage.svelte';
     import jwtDecode from 'jwt-decode';
+import axios from 'axios';
 
     /* Variables */
     // user
@@ -24,7 +25,7 @@
     $:eAdage = "";
     $:eId = "";
 
-    let searchValue = '';
+    let searchString;
 
     const modal = {
         profileModal: "EPR",
@@ -45,6 +46,11 @@
             }
             return state;
         })
+    }
+
+    async function logout() {
+        const response = await axios.delete('/cnt/profile/logout');
+        console.log(response)
     }
 
     const closeM = () => {
@@ -110,17 +116,14 @@
                     </div>
                 </section>
                 <section>
-                    <div class="field search">
-                        <input type="text" placeholder="search adage" bind:value={searchValue} on:input={()=>console.log('searching...')}>
-                        <span><i class="fa-solid fa-magnifying-glass"></i></span>
-                    </div>
+
 
                     <div class='flex-inline' style="flex-wrap: wrap;">
                         <ButtonIcon on:click={adageStore.prevpage($adageStore.page)}><i class="fa-solid fa-chevron-left"></i></ButtonIcon>
                         <span>{$adageStore.page}</span>
                         <ButtonIcon on:click={adageStore.nextPage($adageStore.page)}><i class="fa-solid fa-chevron-right"></i></ButtonIcon>
                     </div>
-                    <ButtonSend>Fetch</ButtonSend>
+                    <ButtonSend on:click={logout}>logout</ButtonSend>
                 </section>
             </header>
             <!-- Render adage list if adage array isn't empty -->

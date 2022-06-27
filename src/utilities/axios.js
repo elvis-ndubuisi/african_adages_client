@@ -1,6 +1,7 @@
 import axios from "axios";
 
 const BN_URL = "http://localhost:5000";
+// const BN_URL = "https://africanadage.up.railway.app";
 
 axios.defaults.baseURL = BN_URL;
 

@@ -4,11 +4,23 @@
     import {link} from 'svelte-spa-router';
     import ButtonCTA from '../components/buttons/ButtonCTA.svelte';
     import ButtonCtaDark from '../components/buttons/ButtonCTA_Dark.svelte';
+    import JSONtree from 'svelte-json-tree';
 
     $: adage = "";
+    const value = {
+    array: [1, 2, 3],
+    bool: true,
+    object: {
+      foo: 'bar'
+    },
+		symbol: Symbol('foo'),
+		nested: [{
+			a: [1, '2', null, undefined]
+		}]
+  };
 
-    function copyToClip(event) {
-        console.log(event.target.previousSiblingElement)
+    function copyToClip() {
+        
     }
 
     onMount(async () => {
@@ -20,8 +32,6 @@
                 if(response.status === 200) {
                     adage = response.data.adage;
                     sessionStorage.setItem('adage', response.data.adage);
-                }else {
-                    adage = 'The death of an elderly man is like a burning library';
                 }
             } catch (err) {
                 console.log('there was an error')
@@ -36,13 +46,14 @@
             <h2>African Heritage</h2>
             <h1>{adage}</h1>
             <p>
-                The African Heritage API a free to use JSON API that delivers african proverbs/adages, riddles, stories, myths unique to different african countries.
-                Feel free to join and contribute to the project.
+                The African Heritage API a free to use JSON API that delivers african proverbs/adages unique to different african countries.
+                Feel free to submit and contribute to the project.
             </p>
 
             <section class="home-button">
-                <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA>
-                <ButtonCtaDark><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><i class="fa-brands fa-twitter fa-lg"></i> <span>Share </span></a></ButtonCtaDark>
+                <!-- <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA> -->
+                <ButtonCTA><a href=""><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
+                <ButtonCtaDark><a class="twitter-share-button" href="https://twitter.com/intent/retweet" target="_blank"><i class="fa-brands fa-twitter fa-lg"></i> <span>Share </span></a></ButtonCtaDark>
             </section>
         </section>
     </section>
@@ -64,29 +75,28 @@
         </div>
     </aside>
     <main>
+        <h3>Adage</h3>
+        <small class="note"><b>NB:</b> Requests are rate-limited to 4 requests per minute</small>
         <section id="RNDA">
-            <h3>Random Adage</h3>
-            <p>Returns a random adage on every request</p>
-            <small class="note"><b>NB:</b> requests are cached every ooo mins</small>
+            <p>Random adage on every request</p>
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
                 <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
             </section>
             <section class="response">
-                <pre>
-                    <code></code>
-                </pre>
+                <code style="--json-tree-font-family: inherit; --json-tree-font-size: inherit;">
+                    <JSONtree {value}/>
+                </code>
             </section>
         </section>
 
         <section id="QRY">
-            <h3>Filtered Random Adage</h3>
-            <p>Returns a random adage that matches specified filter parameter</p>
+            <p>Random adage that matches specified params on every request</p>
             <small class="note"><b>NB:</b> An empty object is returned if no adage matches specified query</small>
             <section class="request">
                 <span class="method">GET</span>
-                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
+                <code class="url">https://afrianadage.railway.app/api/adageoftheday</code>
                 <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
             </section>
             <section class="response">
@@ -95,9 +105,8 @@
         </section>
 
         <section id="AOD">
-            <h3>Adage of the day</h3>
-            <p>adage of the day</p>
-            <small class="note"><b>NB:</b> noted</small>
+            <p>Adage of the Day</p>
+            <small class="note"><b>NB:</b> Adage is renewed every 23rd hour</small>
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
@@ -112,10 +121,6 @@
 
 
 <style>
-    code {
-        /* overflow-x: hidden; */
-        /* word-wrap: break-word; */
-    }
     .landing {
         height: 370px;
         display: grid;
@@ -227,15 +232,20 @@
     main{
         display: flex;
         flex-direction: column;
-        gap: 0.5rem;
         padding: 1rem 0;
         flex-direction: column;
-        gap: 0.5rem;
         padding: 1rem 0;
         flex: 1;
     }
+    main > section {
+        margin: 1.5rem 0;
+    }
+    main > section > p:first-child {
+        margin-bottom: 1rem;
+    }
     main h3 {
         color: var(--clr-accent);
+        margin-bottom: 0.5rem;
     }
 
     /* code */
@@ -246,6 +256,7 @@
         justify-content: space-between;
         gap: 1.2rem;
         padding: 0.5rem 1rem;
+        margin-top: 0.5rem;
         border-bottom: solid 2px var(--clr-foreground);
         border-top: solid 2px var(--clr-foreground);
     }
@@ -269,11 +280,12 @@
         background-color: var(--clr-foreground);
         color: var(--clr-background);
         padding: 0.5rem 1rem;
-        min-height: 200px;
-        border-radius: 0.5rem;
+        min-height: 40px;
+        border-radius: 0 0 0.5rem 0.5rem;
     }
     .note {
         font-style: italic;
         font-size: 0.8rem;
+        display: block;
     }
 </style>

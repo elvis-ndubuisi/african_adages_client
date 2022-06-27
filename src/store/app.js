@@ -28,10 +28,6 @@ function notifyStoreState() {
   };
 }
 // app modal
-const modal = {
-  shouldDisplay: "",
-  canClickNext: true,
-};
 
 export const notify = writable({ isIncident: false, status: "", reason: "" });
 export const modalStore = writable({ shouldDisplay: "", canClickNext: true });
@@ -177,7 +173,7 @@ function adageStoreState() {
       );
 
       // update data if patched.
-      if (response.status === 200 && response.data === "updated") {
+      if (response.status === 200 && response.data === "adage updated") {
         const data = await fetchData(page);
         if (data) {
           update((state) => {
@@ -208,7 +204,7 @@ function adageStoreState() {
       });
 
       // update data if deleted.
-      if (response.status === 200) {
+      if (response.status === 200 && response.data === "adage deleted") {
         const data = await fetchData(page);
         if (data) {
           update((state) => {
