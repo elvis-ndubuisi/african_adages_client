@@ -52,7 +52,7 @@
 
             <section class="home-button">
                 <!-- <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA> -->
-                <ButtonCTA><a href=""><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
+                <ButtonCTA><a href="https://www.linkedin.com/in/simplyelvis"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
                 <ButtonCtaDark><a class="twitter-share-button" href="https://twitter.com/intent/retweet" target="_blank"><i class="fa-brands fa-twitter fa-lg"></i> <span>Share </span></a></ButtonCtaDark>
             </section>
         </section>
@@ -67,8 +67,8 @@
                 <div id="lks">
                     <ul>
                         <li> <a href="#RNDA">random adage</a></li>
-                        <li> <a href="#QRY">random adage</a></li>
-                        <li> <a href="#AOD">random adage by filter</a></li>
+                        <li> <a href="#QRY">search adage</a></li>
+                        <li> <a href="#AOD">adage of the day</a></li>
                     </ul>
                 </div>
             </section>

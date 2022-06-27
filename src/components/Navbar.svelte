@@ -10,9 +10,9 @@
             {#if $location === "/"}
                 <li><a href="#endpoints">endpoints</a></li>
             {/if}
-            {#if $location !== '/dashboard'}
+            <!-- {#if $location !== '/dashboard'}
                 <li><a href="/dashboard" use:link>Dashboard</a></li>
-            {/if}
+            {/if} -->
             <li><a href="https://twitter.com/elvis__ndubuisi" target="_blank"><i class="fa-brands fa-twitter"></i> <span>Say Hi!</span></a></li>
             <li><a href="https://www.buymeacoffee.com/simplyelvis" target="_blank"><i class="fa-solid fa-coffee"></i> <span>Buy me coffee</span></a></li>
         </ul>
