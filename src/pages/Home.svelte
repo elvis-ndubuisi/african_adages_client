@@ -23,6 +23,10 @@
         
     }
 
+    function copyToClip(event) {
+        console.log(event.target.previousSiblingElement)
+    }
+
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
         const cachedAdage = sessionStorage.getItem('adage');
