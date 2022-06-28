@@ -197,13 +197,10 @@ import axios from 'axios';
         gap: 1rem;
         flex-wrap: wrap;
     }
-    .field {
+    /* .field {
         border-color: var(--clr-background);
         flex: 1;
-    }
-    .search {
-        min-width: 300px;
-    }
+    } */
     .no-adages {
         width: 100%;
         font-size: 2rem;
