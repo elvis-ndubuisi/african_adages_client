@@ -134,6 +134,10 @@ a {
   display: flex;
   justify-content: right;
 }
+
+.filtered {
+  display: none !important;
+}
 /**********************
 *	SPA styles 
  **********************/
