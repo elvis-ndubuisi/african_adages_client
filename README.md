@@ -1,14 +1,11 @@
 # The African Heritage Project
-
-eventually for the sate of peero
-
 ---
 
 <h1 align="center"><b>African Adage</b> client</h1>
 
 The African Adage client app lets contributors submit adages to the African Adage API repository as well as manage submitted adages via its provided dashboard. The web app also serves as the API documentation for the public.
 
-To join, visit [africanadage](https://africanadage.vercel.app), register and start contributing.
+To join, visit [africanheritage](https://africanheritage.vercel.app), register and start contributing.
 
 _Please be nice and submit only valid adages/proverbs_
 
