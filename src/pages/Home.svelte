@@ -7,21 +7,6 @@
     import JSONtree from 'svelte-json-tree';
 
     $: adage = "";
-    const value = {
-    array: [1, 2, 3],
-    bool: true,
-    object: {
-      foo: 'bar'
-    },
-		symbol: Symbol('foo'),
-		nested: [{
-			a: [1, '2', null, undefined]
-		}]
-  };
-
-    function copyToClip() {
-        
-    }
 
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
@@ -53,7 +38,7 @@
             <section class="home-button">
                 <!-- <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA> -->
                 <ButtonCTA><a href="https://www.linkedin.com/in/simplyelvis"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
-                <ButtonCtaDark><a class="twitter-share-button" href="https://twitter.com/intent/retweet" target="_blank"><i class="fa-brands fa-twitter fa-lg"></i> <span>Share </span></a></ButtonCtaDark>
+                <ButtonCtaDark><a href="https://github.com/elvis-ndubuisi/african_heritage_api" target="_blank"><i class="fa-brands fa-github fa-lg"></i> <span>Source Code </span></a></ButtonCtaDark>
             </section>
         </section>
     </section>
@@ -67,7 +52,7 @@
                 <div id="lks">
                     <ul>
                         <li> <a href="#RNDA">random adage</a></li>
-                        <li> <a href="#QRY">search adage</a></li>
+                        <!-- <li> <a href="#QRY">search adage</a></li> -->
                         <li> <a href="#AOD">adage of the day</a></li>
                     </ul>
                 </div>
@@ -81,17 +66,17 @@
             <p>Random adage on every request</p>
             <section class="request">
                 <span class="method">GET</span>
-                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
+                <code class="url">https://africanheritage.up.railway.app/adage/</code>
+                <!-- <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span> -->
             </section>
-            <section class="response">
-                <code style="--json-tree-font-family: inherit; --json-tree-font-size: inherit;">
+            <!-- <section class="response">
+                <pre style="--json-tree-font-family: inherit; --json-tree-font-size: inherit;">
                     <JSONtree {value}/>
-                </code>
-            </section>
+                </pre>
+            </section> -->
         </section>
 
-        <section id="QRY">
+        <!-- <section id="QRY">
             <p>Random adage that matches specified params on every request</p>
             <small class="note"><b>NB:</b> An empty object is returned if no adage matches specified query</small>
             <section class="request">
@@ -102,19 +87,19 @@
             <section class="response">
                 <pre></pre>
             </section>
-        </section>
+        </section> -->
 
         <section id="AOD">
             <p>Adage of the Day</p>
             <small class="note"><b>NB:</b> Adage is renewed every 23rd hour</small>
             <section class="request">
                 <span class="method">GET</span>
-                <code class="url">https://afrianadage.zeet.app/api/adageoftheday</code>
-                <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span>
+                <code class="url">https://africanheritage.up.railway.app/adage/aod</code>
+                <!-- <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span> -->
             </section>
-            <section class="response">
+            <!-- <section class="response">
                 <pre></pre>
-            </section>
+            </section> -->
         </section>
     </main>
 </section>
