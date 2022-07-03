@@ -11,11 +11,12 @@
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
         const cachedAdage = sessionStorage.getItem('adage');
-        if(!cachedAdage){
+        if(cachedAdage){
             try {
                 const response = await axios.get('/adage/aod');
+                console.log(response)
                 if(response.status === 200) {
-                    adage = response.data.adage;
+                    adage = response.data;
                     sessionStorage.setItem('adage', response.data.adage);
                 }
             } catch (err) {
@@ -123,6 +124,9 @@
         font-size: 3rem;
         color: var(--clr-accent);
     }
+    .cta h1::first-letter {
+        text-transform: capitalize;
+    }
     .cta p {
         text-align: justify;
         font-size: 0.9rem;
@@ -138,6 +142,7 @@
         .cta h1 {
             font-size: 2rem;
         }
+
     }
     .home-button {
         display: flex;
