@@ -11,9 +11,10 @@
     onMount(async () => {
         // request for new 'Adage of the Day' from api IF adage is absent in sessionStorage.
         const cachedAdage = sessionStorage.getItem('adage');
-        if(cachedAdage){
+        if(!cachedAdage){
             try {
                 const response = await axios.get('/adage/aod');
+                console.log(response)
                 if(response.status === 200) {
                     adage = response.data;
                     sessionStorage.setItem('adage', response.data);
@@ -21,6 +22,8 @@
             } catch (err) {
                 console.log('there was an error')
             }
+        }else {
+            adage = cachedAdage;
         }
     })
 </script>
