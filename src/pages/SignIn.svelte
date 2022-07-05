@@ -67,8 +67,7 @@
                 
                 replace('/dashboard')
             }else {
-                console.log(response.status)
-                console.log(response)
+                console.log(response.data)
                 notify.update((state)=>{
                     state.isIncident = true;
                     state.reason = 'something occured';
