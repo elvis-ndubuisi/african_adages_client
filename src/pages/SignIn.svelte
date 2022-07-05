@@ -66,6 +66,14 @@
                 })
                 
                 replace('/dashboard')
+            }else if (response.status === 404){
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.reason = response.data.error.message;
+                    state.status = response.status;
+                    
+                    return state;
+                }
             }
         } catch (err) {
             notify.update((state)=>{
