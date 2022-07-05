@@ -67,11 +67,10 @@
                 
                 replace('/dashboard')
             }else {
-                console.log(response)
                 notify.update((state)=>{
                     state.isIncident = true;
-                    state.reason = "login successful";
-                    state.status = "200";
+                    state.reason = response.data.error.message;
+                    state.status = response.data.error.status;
                     
                     return state;
                 })
@@ -83,7 +82,6 @@
                 state.status = 'error';
                 return state;
             })
-            console.log(err)
         }
     }
     
