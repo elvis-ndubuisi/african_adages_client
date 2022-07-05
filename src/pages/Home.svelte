@@ -14,7 +14,6 @@
         if(!cachedAdage){
             try {
                 const response = await axios.get('/adage/aod');
-                console.log(response)
                 if(response.status === 200) {
                     adage = response.data;
                     sessionStorage.setItem('adage', response.data);
