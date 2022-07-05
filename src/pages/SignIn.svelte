@@ -68,9 +68,11 @@
                 replace('/dashboard')
             }
         } catch (err) {
-            if(response.status === 404){
-                console.log(response)
-            }
+            console.log(err)
+            console.log(err.response)
+            console.log(err.status)
+            console.log(response.status)
+            console.log(response)
             
             notify.update((state)=>{
                 state.isIncident = true;
