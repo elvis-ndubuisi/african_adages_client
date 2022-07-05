@@ -67,6 +67,7 @@
                 
                 replace('/dashboard')
             }else if (response.status === 404){
+                console.log(response.data);
                 notify.update((state)=>{
                     state.isIncident = true;
                     state.reason = response.data.error.message;
