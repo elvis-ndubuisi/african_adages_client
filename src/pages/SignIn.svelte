@@ -66,16 +66,12 @@
                 })
                 
                 replace('/dashboard')
-            }else {
-                notify.update((state)=>{
-                    state.isIncident = true;
-                    state.reason = response.data.error.message;
-                    state.status = response.data.error.status;
-                    
-                    return state;
-                })
             }
         } catch (err) {
+            if(response.status === 404){
+                console.log(response)
+            }
+            
             notify.update((state)=>{
                 state.isIncident = true;
                 state.reason = 'no internet';
