@@ -39,7 +39,6 @@
 
         try {
             const response = await axios.post('account/login', {email, password});
-            console.log(response);
 
             if(response.status === 200){
                 axios.defaults.headers.common['Authorization'] = `Bearer ${response.data.accessToken}`
@@ -68,7 +67,14 @@
                 
                 replace('/dashboard')
             }else {
-                console.log(response.data);
+                console.log(response)
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.reason = "login successful";
+                    state.status = "200";
+                    
+                    return state;
+                })
             }
         } catch (err) {
             notify.update((state)=>{
