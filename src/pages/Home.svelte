@@ -38,8 +38,8 @@
             </p>
 
             <section class="home-button">
-                <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA>
-                <!-- <ButtonCTA><a href="https://www.linkedin.com/in/simplyelvis"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA> -->
+                <!-- <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA> -->
+                <ButtonCTA><a href="https://www.linkedin.com/in/elvisndubuisi"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
                 <ButtonCtaDark><a href="https://github.com/elvis-ndubuisi/african_heritage_api" target="_blank"><i class="fa-brands fa-github fa-lg"></i> <span>Source Code </span></a></ButtonCtaDark>
             </section>
         </section>
