@@ -15,12 +15,14 @@
             try {
                 const response = await axios.get('/adage/aod');
                 if(response.status === 200) {
-                    adage = response.data.adage;
-                    sessionStorage.setItem('adage', response.data.adage);
+                    adage = response.data;
+                    sessionStorage.setItem('adage', response.data);
                 }
             } catch (err) {
                 console.log('there was an error')
             }
+        }else {
+            adage = cachedAdage;
         }
     })
 </script>
@@ -37,7 +39,7 @@
 
             <section class="home-button">
                 <!-- <ButtonCTA><a href="/login" use:link><i class="fa-solid fa-circle-plus fa-lg"></i> <span>add your adage</span></a></ButtonCTA> -->
-                <ButtonCTA><a href="https://www.linkedin.com/in/simplyelvis"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
+                <ButtonCTA><a href="https://www.linkedin.com/in/elvisndubuisi"><i class="fa-brands fa-linkedin fa-lg"></i> <span>linkedIn</span></a></ButtonCTA>
                 <ButtonCtaDark><a href="https://github.com/elvis-ndubuisi/african_heritage_api" target="_blank"><i class="fa-brands fa-github fa-lg"></i> <span>Source Code </span></a></ButtonCtaDark>
             </section>
         </section>
@@ -92,6 +94,7 @@
         <section id="AOD">
             <p>Adage of the Day</p>
             <small class="note"><b>NB:</b> Adage is renewed every 23rd hour</small>
+            <small class="note">A string (adage) is return</small>
             <section class="request">
                 <span class="method">GET</span>
                 <code class="url">https://africanheritage.up.railway.app/adage/aod</code>
@@ -123,6 +126,9 @@
         font-size: 3rem;
         color: var(--clr-accent);
     }
+    .cta h1::first-letter {
+        text-transform: capitalize;
+    }
     .cta p {
         text-align: justify;
         font-size: 0.9rem;
@@ -138,6 +144,7 @@
         .cta h1 {
             font-size: 2rem;
         }
+
     }
     .home-button {
         display: flex;

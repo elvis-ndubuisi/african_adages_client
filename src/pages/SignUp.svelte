@@ -101,6 +101,13 @@
                 })
                 
                 replace('/dashboard')
+            }else {
+                notify.update((state)=>{
+                    state.isIncident = true;
+                    state.reason = response.response.data.error.message;
+                    state.status = response.response.data.error.status;
+                    return state;
+                })
             }
         } catch (err) {
             notify.update((state)=>{
