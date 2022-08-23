@@ -68,7 +68,7 @@
             <p>Random adage on every request</p>
             <section class="request">
                 <span class="method">GET</span>
-                <code class="url">https://africanheritage.up.railway.app/adage/</code>
+                <code class="url">https://african-heritage.herokuapp.com/adage/</code>
                 <!-- <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span> -->
             </section>
             <!-- <section class="response">
@@ -97,7 +97,7 @@
             <small class="note">A string (adage) is return</small>
             <section class="request">
                 <span class="method">GET</span>
-                <code class="url">https://africanheritage.up.railway.app/adage/aod</code>
+                <code class="url">https://african-heritage.herokuapp.com/aod</code>
                 <!-- <span class="clip" on:click={copyToClip}><i class="fa-solid fa-clone"></i></span> -->
             </section>
             <!-- <section class="response">
